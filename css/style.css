@@ -1,0 +1,564 @@
+/* =========================
+   Basic Reset
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7f5f2;
+  color: #1f1f1f;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+
+/* =========================
+   Header / Navigation
+========================= */
+
+.site-header {
+  width: 100%;
+  padding: 1.25rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(247, 245, 242, 0.95);
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1f1f1f;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.site-nav a {
+  color: #1f1f1f;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid #1f1f1f;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+
+/* =========================
+   Hero Section
+========================= */
+
+.hero {
+  min-height: 82vh;
+  padding: 4rem 5%;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 75vh;
+  object-fit: cover;
+}
+
+.hero-text {
+  max-width: 620px;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.hero-text h1 {
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.04em;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+
+/* =========================
+   Buttons
+========================= */
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.button {
+  display: inline-block;
+  background: #1f1f1f;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid #1f1f1f;
+}
+
+.button:hover {
+  background: transparent;
+  color: #1f1f1f;
+}
+
+.button.secondary {
+  background: transparent;
+  color: #1f1f1f;
+}
+
+.button.secondary:hover {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+
+/* =========================
+   Services Section
+========================= */
+
+.services {
+  padding: 4rem 5%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  border-top: 1px solid #ddd;
+}
+
+.services article {
+  background: #fff;
+  padding: 2rem;
+}
+
+.services h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+
+/* =========================
+   Featured Section
+========================= */
+
+.featured {
+  padding: 4rem 5%;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-heading h2 {
+  font-size: 2rem;
+}
+
+.section-heading a {
+  font-size: 0.95rem;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.featured-grid img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+}
+
+
+/* =========================
+   Page Intro
+========================= */
+
+.page-intro {
+  padding: 5rem 5% 2rem;
+  max-width: 850px;
+}
+
+.page-intro h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.95;
+  margin-bottom: 1rem;
+  letter-spacing: -0.05em;
+}
+
+.page-intro p {
+  font-size: 1.1rem;
+  max-width: 620px;
+}
+
+
+/* =========================
+   Portrait Gallery
+========================= */
+
+.gallery {
+  padding: 2rem 5% 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.gallery a {
+  display: block;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.gallery img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.gallery a:hover img {
+  transform: scale(1.03);
+}
+
+
+/* =========================
+   About Page
+========================= */
+
+.about-section {
+  padding: 5rem 5%;
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  gap: 4rem;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.about-text {
+  max-width: 760px;
+}
+
+.about-text h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.05em;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+}
+
+.about-text .lead {
+  font-size: 1.35rem;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.about-text .button {
+  margin-top: 1rem;
+}
+
+.about-image img {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+  object-position: 45% center;
+}
+
+/* =========================
+   Contact Page
+========================= */
+
+.contact-section {
+  padding: 5rem 5%;
+  min-height: 80vh;
+  display: grid;
+  align-items: center;
+}
+
+.contact-text {
+  max-width: 850px;
+}
+
+.contact-text h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.05em;
+}
+
+.contact-text p {
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+}
+
+.contact-text .lead {
+  font-size: 1.35rem;
+  line-height: 1.4;
+  max-width: 760px;
+  margin-bottom: 2rem;
+}
+
+.contact-details {
+  margin-bottom: 2rem;
+}
+
+.contact-details a {
+  text-decoration: underline;
+}
+.contact-grid {
+  grid-template-columns: 1fr 0.55fr;
+  gap: 4rem;
+}
+
+.contact-image img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* =========================
+   CTA Section
+========================= */
+
+.cta {
+  padding: 5rem 5%;
+  text-align: center;
+  background: #1f1f1f;
+  color: #fff;
+}
+
+.cta h2 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.cta p {
+  margin-bottom: 1.5rem;
+}
+
+.cta .button {
+  background: #fff;
+  color: #1f1f1f;
+  border-color: #fff;
+}
+
+.cta .button:hover {
+  background: transparent;
+  color: #fff;
+}
+
+
+/* =========================
+   Footer
+========================= */
+
+.site-footer {
+  padding: 2rem 5%;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+/* =========================
+   Tablet Styles
+========================= */
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-image img {
+    height: 65vh;
+  }
+
+  .services {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-grid,
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featured-grid img,
+  .gallery img {
+    height: 460px;
+  }
+
+  .about-section {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image img {
+    height: 60vh;
+  }
+
+  .contact-grid {
+  grid-template-columns: 1fr;
+ }
+
+ .contact-image {
+  max-width: 420px;
+ }
+}
+
+
+/* =========================
+   Phone Styles
+========================= */
+
+@media (max-width: 650px) {
+  .site-header {
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 0.9rem;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    background: #f7f5f2;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .site-nav.active {
+    display: flex;
+  }
+
+  .site-nav a {
+    padding: 1rem 5%;
+    border-top: 1px solid #ddd;
+  }
+
+  .hero {
+    padding: 2rem 5% 4rem;
+    gap: 2rem;
+  }
+
+  .hero-image img {
+    height: 55vh;
+  }
+
+  .services,
+  .featured,
+  .gallery {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .featured-grid,
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-grid img,
+  .gallery img {
+    height: auto;
+  }
+
+  .section-heading {
+    display: block;
+  }
+
+  .section-heading h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button {
+    text-align: center;
+  }
+
+  .about-section {
+    padding: 3rem 5%;
+    gap: 2rem;
+  }
+
+  .about-image img {
+    height: auto;
+  }
+
+  .about-text .lead {
+    font-size: 1.15rem;
+  }
+  .contact-section {
+  padding: 3rem 5%;
+ }
+
+ .contact-text .lead {
+  font-size: 1.15rem;
+ }
+ .contact-image {
+  max-width: 100%;
+ }
+}
