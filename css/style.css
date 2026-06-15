@@ -566,27 +566,40 @@ a {
 /* =========================
    Lightbox Modal
 ========================= */
+
 .lightbox {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
-  z-index: 1000; /* Sits on top of the sticky header */
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(247, 245, 242, 0.98); /* Matches your premium gallery bg */
+  background-color: rgba(247, 245, 242, 0.98);
   justify-content: center;
   align-items: center;
   padding: 2rem;
 }
 
+.lightbox.active {
+  display: flex;
+}
+
 .lightbox-content {
-  max-width: calc(100vw - 4rem);
-  max-height: calc(100vh - 4rem);
+  max-width: calc(100vw - 8rem);
+  max-height: 82vh;
   width: auto;
   height: auto;
   object-fit: contain;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  cursor: zoom-in;
+  transition: max-width 0.25s ease, max-height 0.25s ease;
+}
+
+.lightbox-content.expanded {
+  max-width: calc(100vw - 1.25rem);
+  max-height: calc(100vh - 1.25rem);
+  cursor: zoom-out;
 }
 
 .lightbox-close {

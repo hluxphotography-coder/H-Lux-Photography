@@ -24,13 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         lightboxImg.src = fullSizeUrl;
         lightboxImg.alt = imgAlt;
-        lightbox.style.display = "flex";
+
+        lightbox.classList.add("active");
+        lightboxImg.classList.remove("expanded");
+
         document.body.style.overflow = "hidden";
       });
     });
 
     const closeLightbox = () => {
-      lightbox.style.display = "none";
+      lightbox.classList.remove("active");
+      lightboxImg.classList.remove("expanded");
       lightboxImg.src = "";
       document.body.style.overflow = "";
     };
@@ -45,8 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    lightboxImg.addEventListener("click", (event) => {
+      event.stopPropagation();
+      lightboxImg.classList.toggle("expanded");
+    });
+
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && lightbox.style.display === "flex") {
+      if (event.key === "Escape" && lightbox.classList.contains("active")) {
         closeLightbox();
       }
     });
