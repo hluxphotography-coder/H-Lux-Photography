@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
 
+  let touchStartX = 0;
+  let touchEndX = 0;
+
   const updateZoomButton = () => {
     if (!lightboxZoom) return;
 
@@ -74,6 +77,19 @@ document.addEventListener("DOMContentLoaded", () => {
     showImage(nextIndex);
   };
 
+  const handleSwipe = () => {
+    const swipeDistance = touchEndX - touchStartX;
+    const minimumSwipeDistance = 50;
+
+    if (Math.abs(swipeDistance) < minimumSwipeDistance) return;
+
+    if (swipeDistance > 0) {
+      showPreviousImage();
+    } else {
+      showNextImage();
+    }
+  };
+
   if (lightbox && lightboxImg && galleryLinks.length > 0) {
     galleryLinks.forEach((link, index) => {
       link.addEventListener("click", (event) => {
@@ -116,6 +132,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (event.target === lightbox) {
         closeLightbox();
       }
+    });
+
+    lightbox.addEventListener("touchstart", (event) => {
+      touchStartX = event.changedTouches[0].screenX;
+    });
+
+    lightbox.addEventListener("touchend", (event) => {
+      touchEndX = event.changedTouches[0].screenX;
+      handleSwipe();
     });
 
     document.addEventListener("keydown", (event) => {
