@@ -463,6 +463,26 @@ a {
    Phone Styles
 ========================= */
 
+.lightbox {
+  padding: 0.75rem;
+}
+
+.lightbox-content {
+  max-width: calc(100vw - 2rem);
+  max-height: 82vh;
+}
+
+.lightbox-content.expanded {
+  max-width: calc(100vw - 1rem);
+  max-height: calc(100vh - 1rem);
+}
+
+.lightbox-close {
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+}
+
 @media (max-width: 650px) {
   .site-header {
     align-items: center;
