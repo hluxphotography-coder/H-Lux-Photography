@@ -506,6 +506,37 @@ a {
 }
 
 @media (max-width: 650px) {
+  .lightbox {
+    padding: 4rem 0.75rem 4.75rem;
+  }
+
+  .lightbox-content {
+    max-width: calc(100vw - 1.5rem);
+    max-height: calc(100vh - 9rem);
+  }
+
+  .lightbox-content.expanded {
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100vh - 8rem);
+  }
+
+  .lightbox-nav {
+    top: auto;
+    bottom: 1rem;
+    transform: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+  }
+
+  .lightbox-prev {
+    left: calc(50% - 3rem);
+  }
+
+  .lightbox-next {
+    right: calc(50% - 3rem);
+  }
+
   .site-header {
     align-items: center;
   }
