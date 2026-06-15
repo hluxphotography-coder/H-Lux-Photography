@@ -562,3 +562,40 @@ a {
   max-width: 100%;
  }
 }
+
+/* =========================
+   Lightbox Modal
+========================= */
+.lightbox {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000; /* Sits on top of the sticky header */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(247, 245, 242, 0.98); /* Matches your premium gallery bg */
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.lightbox-content {
+  max-width: calc(100vw - 4rem);
+  max-height: calc(100vh - 4rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 5%;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #1f1f1f;
+  cursor: pointer;
+  user-select: none;
+}
