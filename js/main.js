@@ -1,28 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
+  /* =========================
+     Mobile Navigation
+  ========================= */
+
   const menuToggle = document.getElementById("menu-toggle");
   const siteNav = document.getElementById("site-nav");
 
   if (menuToggle && siteNav) {
-    menuToggle.addEventListener("click", () => {
-      siteNav.classList.toggle("active");
-    });
-  }
+  menuToggle.addEventListener("click", () => {
+    const isOpen = siteNav.classList.toggle("active");
+    menuToggle.setAttribute("aria-expanded", isOpen);
+  });
+}
+
+
+  /* =========================
+     Lightbox Gallery
+  ========================= */
 
   const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-  const lightboxClose = document.querySelector(".lightbox-close");
-  const lightboxZoom = document.getElementById("lightbox-zoom");
-  const lightboxPrev = document.querySelector(".lightbox-prev");
-  const lightboxNext = document.querySelector(".lightbox-next");
-  const galleryLinks = Array.from(document.querySelectorAll(".gallery a"));
+
+const lightboxImg = lightbox ? lightbox.querySelector("#lightbox-img") : null;
+const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : null;
+const lightboxZoom = lightbox ? lightbox.querySelector("#lightbox-zoom") : null;
+const lightboxPrev = lightbox ? lightbox.querySelector(".lightbox-prev") : null;
+const lightboxNext = lightbox ? lightbox.querySelector(".lightbox-next") : null;
+
+const galleryLinks = Array.from(document.querySelectorAll(".gallery a"));
 
   let currentIndex = 0;
-
   let touchStartX = 0;
   let touchEndX = 0;
 
   const updateZoomButton = () => {
-    if (!lightboxZoom) return;
+    if (!lightboxZoom || !lightboxImg) return;
 
     const isExpanded = lightboxImg.classList.contains("expanded");
 
@@ -32,12 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const toggleZoom = () => {
+    if (!lightboxImg) return;
+
     lightboxImg.classList.toggle("expanded");
     updateZoomButton();
   };
 
   const showImage = (index) => {
-    if (!galleryLinks.length) return;
+    if (!galleryLinks.length || !lightboxImg) return;
 
     currentIndex = index;
 
@@ -53,17 +66,27 @@ document.addEventListener("DOMContentLoaded", () => {
     updateZoomButton();
   };
 
-  const openLightbox = (index) => {
+    const openLightbox = (index) => {
+    if (!lightbox) return;
+
     showImage(index);
     lightbox.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    if (lightboxClose) {
+      lightboxClose.focus();
+    }
   };
 
-  const closeLightbox = () => {
+    const closeLightbox = () => {
+    if (!lightbox || !lightboxImg) return;
+
     lightbox.classList.remove("active");
     lightboxImg.classList.remove("expanded");
-    lightboxImg.src = "";
+    lightboxImg.removeAttribute("src");
+    lightboxImg.alt = "";
     document.body.style.overflow = "";
+
     updateZoomButton();
   };
 
@@ -78,6 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const handleSwipe = () => {
+    if (lightboxImg && lightboxImg.classList.contains("expanded")) return;
+
     const swipeDistance = touchEndX - touchStartX;
     const minimumSwipeDistance = 50;
 
@@ -168,26 +193,32 @@ document.addEventListener("DOMContentLoaded", () => {
         updateZoomButton();
       }
     });
-    const revealElements = document.querySelectorAll(".reveal");
+  }
 
-    if (revealElements.length > 0) {
-      const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          threshold: 0.15
-        }
-      );
 
-      revealElements.forEach(element => {
-        revealObserver.observe(element);
-      });
-    }
+  /* =========================
+     Scroll Reveal Animation
+  ========================= */
+
+  const revealElements = document.querySelectorAll(".reveal");
+
+  if (revealElements.length > 0) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    revealElements.forEach(element => {
+      revealObserver.observe(element);
+    });
   }
 });

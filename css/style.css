@@ -72,7 +72,8 @@ a {
   font-size: 0.95rem;
 }
 
-.site-nav a:hover {
+.site-nav a:hover,
+.site-nav a:focus-visible {
   text-decoration: underline;
 }
 
@@ -152,6 +153,15 @@ a {
 .button:hover {
   background: transparent;
   color: #1f1f1f;
+}
+
+.site-nav a:focus-visible,
+.button:focus-visible,
+.menu-toggle:focus-visible,
+.site-footer a:focus-visible,
+.gallery a:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 4px;
 }
 
 .button.secondary {
@@ -330,11 +340,11 @@ a {
 .contact-section {
   padding: 5rem 5%;
   min-height: 80vh;
-  display: grid;
   align-items: center;
 }
 
 .contact-grid {
+  display: grid;
   grid-template-columns: 1fr 0.55fr;
   gap: 4rem;
 }
@@ -526,6 +536,13 @@ a {
 
 .lightbox-next {
   right: 2rem;
+}
+
+.lightbox-close:focus,
+.lightbox-zoom:focus,
+.lightbox-nav:focus {
+  outline: 1px solid #1f1f1f;
+  outline-offset: 4px;
 }
 
 /* =========================
