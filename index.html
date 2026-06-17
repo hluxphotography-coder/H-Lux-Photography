@@ -6,9 +6,40 @@
 
   <title>HENRY LUX PHOTOGRAPHY</title>
 
+  <meta name="description" content="Henry Lux Photography offers portraits, headshots, product and still life photography, events, artwork documentation, and institutional photography in New York City.">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="images/portraits/large/portrait-1.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Henry Lux Photography",
+  "description": "New York-based photographer specializing in portraits, product and still life photography, events, and institutional work.",
+  "url": "https://henryluxphotography.com/",
+  "image": "https://henryluxphotography.com/images/site/og-image.jpg",
+  "sameAs": [
+    "https://www.instagram.com/hluxphotography/"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "New York",
+    "addressRegion": "NY",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "New York"
+  },
+  "priceRange": "$$"
+}
+</script>
 </head>
 <body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <header class="site-header">
     <a href="index.html" class="logo">HENRY LUX PHOTOGRAPHY</a>
@@ -32,11 +63,11 @@
     </button>
   </header>
 
-  <main>
+  <main id="main-content">
 
     <section class="hero">
       <div class="hero-image">
-        <img src="images/portraits/large/portrait-1.jpg" alt="Creative portrait with neon color and dramatic lighting">
+        <img src="images/portraits/large/portrait-1.jpg" alt="Creative portrait with neon color and dramatic lighting" fetchpriority="high">
       </div>
 
       <div class="hero-text">
@@ -80,9 +111,9 @@
       </div>
 
       <div class="featured-grid">
-        <img src="images/portraits/thumb/portrait-thumb-4.jpg" alt="Clean studio headshot with soft lighting">
-        <img src="images/portraits/thumb/portrait-thumb-5.jpg" alt="Close studio portrait with hands framing the face">
-        <img src="images/portraits/thumb/portrait-thumb-6.jpg" alt="Studio headshot of a man against a neutral background">
+        <img src="images/portraits/thumb/portrait-thumb-4.jpg" alt="Clean studio headshot with soft lighting" loading="lazy" decoding="async">
+        <img src="images/portraits/thumb/portrait-thumb-5.jpg" alt="Close studio portrait with hands framing the face" loading="lazy" decoding="async">
+        <img src="images/portraits/thumb/portrait-thumb-6.jpg" alt="Studio headshot of a man against a neutral background" loading="lazy" decoding="async">
       </div>
     </section>
 
@@ -95,8 +126,9 @@
   </main>
 
   <footer class="site-footer">
-     <p>&copy; 2026 Henry Downes / Henry Lux. All images and content reserved. — 
-     <a href="https://instagram.com/hluxphotography" target="_blank" rel="noopener">Instagram</a></p>
+    <p>&copy; 2026 Henry Downes / Henry Lux. All images and content reserved. — 
+      <a href="https://instagram.com/hluxphotography" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </p>
   </footer>
 
   <script src="js/main.js"></script>

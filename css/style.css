@@ -29,6 +29,26 @@ a {
   color: inherit;
 }
 
+/* =========================
+   Skip Link
+========================= */
+
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  transform: translateY(-200%);
+  background: #1f1f1f;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  z-index: 1001;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 
 /* =========================
    Header / Navigation
@@ -158,10 +178,14 @@ a {
 .site-nav a:focus-visible,
 .button:focus-visible,
 .menu-toggle:focus-visible,
-.site-footer a:focus-visible,
-.gallery a:focus-visible {
+.site-footer a:focus-visible {
   outline: 2px solid #1f1f1f;
   outline-offset: 4px;
+}
+
+.gallery a:focus-visible img {
+  outline: 2px solid #1f1f1f;
+  outline-offset: -4px;
 }
 
 .button.secondary {
@@ -340,7 +364,6 @@ a {
 .contact-section {
   padding: 5rem 5%;
   min-height: 80vh;
-  align-items: center;
 }
 
 .contact-grid {
@@ -538,9 +561,9 @@ a {
   right: 2rem;
 }
 
-.lightbox-close:focus,
-.lightbox-zoom:focus,
-.lightbox-nav:focus {
+.lightbox-close:focus-visible,
+.lightbox-zoom:focus-visible,
+.lightbox-nav:focus-visible {
   outline: 1px solid #1f1f1f;
   outline-offset: 4px;
 }

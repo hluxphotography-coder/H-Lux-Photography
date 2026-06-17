@@ -11,6 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const isOpen = siteNav.classList.toggle("active");
     menuToggle.setAttribute("aria-expanded", isOpen);
   });
+
+  siteNav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      siteNav.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
 }
 
 
