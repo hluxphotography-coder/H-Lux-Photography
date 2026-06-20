@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Still Life | HENRY LUX PHOTOGRAPHY</title>
+
+  <meta name="description" content="Still life, product-oriented photography, and artwork documentation by Henry Lux, based in New York City.">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <a href="index.html" class="logo">HENRY LUX PHOTOGRAPHY</a>
+
+    <nav class="site-nav" id="site-nav">
+      <a href="index.html">Home</a>
+      <a href="portraits.html">Portraits</a>
+      <a href="still-life.html" class="current-page" aria-current="page">Still Life</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menu-toggle"
+      aria-label="Toggle navigation"
+      aria-controls="site-nav"
+      aria-expanded="false"
+    >
+      Menu
+    </button>
+  </header>
+
+  <main id="main-content">
+
+    <section class="page-intro">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Still Life</h1>
+      <p>
+        Still life and product studies shaped by light, form, and surface.
+      </p>
+    </section>
+
+    <section class="gallery">
+
+      <a class="reveal" href="images/still-life/large/still-life-01-eggs-whisk.jpg">
+        <img
+          src="images/still-life/thumb/still-life-thumb-01-eggs-whisk.jpg"
+          alt="Still life photograph of eggs against a light background"
+        >
+      </a>
+
+      <a class="reveal" href="images/still-life/large/still-life-02-breadfruit-knife.jpg">
+        <img
+          src="images/still-life/thumb/still-life-thumb-02-breadfruit-knife.jpg"
+          alt="Still life photograph of breadfruit with a knife"
+        >
+      </a>
+
+      <a class="reveal" href="images/still-life/large/still-life-03-eggs-measuring-cup-whisk.jpg">
+        <img
+          src="images/still-life/thumb/still-life-thumb-03-eggs-measuring-cup-whisk.jpg"
+          alt="Still life photograph of eggs and a measuring cup"
+        >
+      </a>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Henry Downes / Henry Lux. All images and content reserved. — 
+      <a href="https://instagram.com/hluxphotography" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </p>
+  </footer>
+
+  <!-- Lightbox Modal Box -->
+
+  <div id="lightbox" class="lightbox">
+
+    <button type="button" class="lightbox-close" aria-label="Close image">&times;</button>
+
+    <button type="button" class="lightbox-zoom" id="lightbox-zoom" aria-label="Expand image" aria-pressed="false">+</button>
+
+    <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous image">&#10094;</button>
+
+    <img class="lightbox-content" id="lightbox-img" alt="">
+
+    <button type="button" class="lightbox-nav lightbox-next" aria-label="Next image">&#10095;</button>
+
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
