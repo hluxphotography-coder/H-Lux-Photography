@@ -200,29 +200,6 @@ a {
 
 
 /* =========================
-   Services Section
-========================= */
-
-.services {
-  padding: 4rem 5%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  border-top: 1px solid #ddd;
-}
-
-.services article {
-  background: #fff;
-  padding: 2rem;
-}
-
-.services h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.75rem;
-}
-
-
-/* =========================
    Featured Section
 ========================= */
 
@@ -258,6 +235,21 @@ a {
   object-fit: cover;
 }
 
+.featured-grid a {
+  text-decoration: none;
+}
+
+.featured-grid h3 {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.featured-grid a:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 4px;
+}
 
 /* =========================
    Page Intro
@@ -309,6 +301,59 @@ a {
   transform: scale(1.03);
 }
 
+/* =========================
+   Projects Page
+========================= */
+
+.project-list {
+  padding: 2rem 5% 5rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.project-card {
+  display: grid;
+  grid-template-columns: 0.65fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  text-decoration: none;
+  border-top: 1px solid #ddd;
+  padding-top: 2rem;
+}
+
+.project-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.project-card h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+}
+
+.project-card p {
+  max-width: 620px;
+  color: #555;
+}
+
+.project-card:hover h2 {
+  text-decoration: underline;
+}
+
+.project-card:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 4px;
+}
+
+@media (max-width: 650px) {
+  .project-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
 
 /* =========================
    About Page
@@ -409,37 +454,6 @@ a {
   object-fit: cover;
 }
 
-
-/* =========================
-   CTA Section
-========================= */
-
-.cta {
-  padding: 5rem 5%;
-  text-align: center;
-  background: #1f1f1f;
-  color: #fff;
-}
-
-.cta h2 {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-}
-
-.cta p {
-  margin-bottom: 1.5rem;
-}
-
-.cta .button {
-  background: #fff;
-  color: #1f1f1f;
-  border-color: #fff;
-}
-
-.cta .button:hover {
-  background: transparent;
-  color: #fff;
-}
 
 
 /* =========================
@@ -606,9 +620,6 @@ a {
     height: 65vh;
   }
 
-  .services {
-    grid-template-columns: 1fr;
-  }
 
   .featured-grid,
   .gallery {
@@ -685,12 +696,6 @@ a {
     height: 55vh;
   }
 
-  .services,
-  .featured,
-  .gallery {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
 
   .featured-grid,
   .gallery {
