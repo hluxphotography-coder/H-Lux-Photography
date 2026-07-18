@@ -272,6 +272,14 @@ a {
   max-width: 620px;
 }
 
+.artist-statement {
+  margin-top: 2rem;
+}
+
+.artist-statement p + p {
+  margin-top: 1.25rem;
+}
+
 
 /* =========================
    Portrait Gallery
