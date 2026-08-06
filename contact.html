@@ -16,7 +16,7 @@
   "@context": "https://schema.org",
   "@type": "ContactPage",
   "name": "Contact Henry Lux Photography",
-  "description": "Contact Henry Lux for photography inquiries, collaborations, and project-related work."
+  "description": "Contact Henry Lux for photography inquiries, collaborations, and project-related work.",
   "url": "https://henryluxphotography.com/contact.html",
   "mainEntity": {
     "@type": "Organization",
@@ -71,43 +71,248 @@
   <main id="main-content">
 
     <section class="contact-section contact-grid">
-  <div class="contact-text">
-    <p class="eyebrow">Contact</p>
+      <div class="contact-text">
+        <p class="eyebrow">Contact</p>
 
-    <h1>Contact</h1>
+        <h1>Contact</h1>
 
-    <p class="lead">
-      For photography inquiries, collaborations, or project-related work, please reach out by email.
-    </p>
+        <p class="lead">
+          For photography inquiries, collaborations, or project-related work, please get in touch.
+        </p>
 
-    <div class="contact-details">
-      <p>
-        <strong>Email</strong><br>
-        <a href="mailto:HLuxPhotography@gmail.com">
-          HLuxPhotography@gmail.com
+        <div class="contact-details">
+          <p>
+            <strong>Email</strong><br>
+            <a href="mailto:HLuxPhotography@gmail.com">
+              HLuxPhotography@gmail.com
+            </a>
+          </p>
+
+          <p>
+            <strong>Based in</strong><br>
+            New York City
+          </p>
+        </div>
+
+        <a class="button" href="mailto:HLuxPhotography@gmail.com?subject=Photography%20Inquiry">
+          Email directly
         </a>
-      </p>
+      </div>
 
-      <p>
-        <strong>Based in</strong><br>
-        New York City
-      </p>
-    </div>
+      <div class="contact-image">
+        <img
+          src="images/site/henry-lux-headshot.jpg"
+          alt="Portrait of Henry Lux"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
 
-    <a class="button" href="mailto:HLuxPhotography@gmail.com?subject=Photography%20Inquiry">
-      Email
-    </a>
-  </div>
+      <div class="inquiry-panel">
+          <h2>Photography inquiry</h2>
+          <p>
+            Share a little about your project below. You may also use the direct email option above.
+          </p>
+          <p class="form-required-note" id="form-required-note">
+            Fields marked “required” must be completed.
+          </p>
 
-  <div class="contact-image">
-    <img
-      src="images/site/henry-lux-headshot.jpg"
-      alt="Portrait of Henry Lux"
-      loading="lazy"
-      decoding="async"
-    >
-  </div>
-</section>
+          <form
+            id="contact-form"
+            class="inquiry-form"
+            action="https://formspree.io/f/xyegzwdn"
+            method="post"
+            accept-charset="UTF-8"
+            aria-describedby="form-required-note"
+          >
+            <input type="hidden" name="_subject" value="New photography inquiry">
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="inquiry-name">Name <span class="required-label">(required)</span></label>
+                <input
+                  type="text"
+                  id="inquiry-name"
+                  name="name"
+                  autocomplete="name"
+                  data-fs-field
+                  required
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="inquiry-email">Email address <span class="required-label">(required)</span></label>
+                <input
+                  type="email"
+                  id="inquiry-email"
+                  name="email"
+                  autocomplete="email"
+                  inputmode="email"
+                  data-fs-field
+                  required
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="inquiry-organization">Organization or department <span class="optional-label">(optional)</span></label>
+                <input
+                  type="text"
+                  id="inquiry-organization"
+                  name="organization_or_department"
+                  autocomplete="organization"
+                  data-fs-field
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="inquiry-phone">Phone number <span class="optional-label">(optional)</span></label>
+                <input
+                  type="tel"
+                  id="inquiry-phone"
+                  name="phone"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  data-fs-field
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="preferred-date">Preferred event or project date <span class="optional-label">(optional)</span></label>
+                <input
+                  type="date"
+                  id="preferred-date"
+                  name="preferred_event_or_project_date"
+                  autocomplete="off"
+                  data-fs-field
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="inquiry-location">Location <span class="optional-label">(optional)</span></label>
+                <input
+                  type="text"
+                  id="inquiry-location"
+                  name="location"
+                  autocomplete="off"
+                  data-fs-field
+                >
+              </div>
+
+              <div class="form-field form-field-full">
+                <label for="inquiry-type">Inquiry type <span class="required-label">(required)</span></label>
+                <select id="inquiry-type" name="inquiry_type" required aria-controls="institutional-fields" data-fs-field>
+                  <option value="">Select an inquiry type</option>
+                  <option value="general">General inquiry</option>
+                  <option value="portrait">Portrait photography</option>
+                  <option value="event">Event photography</option>
+                  <option value="institutional">Institutional or organizational photography</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <fieldset class="institutional-fields" id="institutional-fields">
+              <legend>Institutional or organizational details</legend>
+              <p class="field-hint">
+                These fields are optional and help clarify institutional assignments.
+              </p>
+
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="assignment-type">Type of event or assignment <span class="optional-label">(optional)</span></label>
+                  <input
+                    type="text"
+                    id="assignment-type"
+                    name="event_or_assignment_type"
+                    autocomplete="off"
+                    data-fs-field
+                  >
+                </div>
+
+                <div class="form-field">
+                  <label for="estimated-attendance">Estimated attendance <span class="optional-label">(optional)</span></label>
+                  <input
+                    type="number"
+                    id="estimated-attendance"
+                    name="estimated_attendance"
+                    min="1"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    data-fs-field
+                  >
+                </div>
+
+                <div class="form-field form-field-full">
+                  <label for="coverage-duration">Expected coverage duration <span class="optional-label">(optional)</span></label>
+                  <input
+                    type="text"
+                    id="coverage-duration"
+                    name="expected_coverage_duration"
+                    autocomplete="off"
+                    placeholder="For example, 4 hours"
+                    data-fs-field
+                  >
+                </div>
+
+                <div class="form-field form-field-full">
+                  <label for="photograph-use">Intended use of the photographs <span class="optional-label">(optional)</span></label>
+                  <textarea
+                    id="photograph-use"
+                    name="intended_use"
+                    rows="4"
+                    data-fs-field
+                  ></textarea>
+                </div>
+
+                <div class="form-field form-field-full">
+                  <label for="procurement-requirements">Vendor, insurance, or procurement requirements <span class="optional-label">(optional)</span></label>
+                  <textarea
+                    id="procurement-requirements"
+                    name="vendor_insurance_or_procurement_requirements"
+                    rows="4"
+                    data-fs-field
+                  ></textarea>
+                </div>
+              </div>
+            </fieldset>
+
+            <p class="visually-hidden" id="institutional-fields-status" aria-live="polite"></p>
+
+            <div class="form-field form-field-full message-field">
+              <label for="inquiry-message">Message <span class="required-label">(required)</span></label>
+              <textarea
+                id="inquiry-message"
+                name="message"
+                rows="7"
+                data-fs-field
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-honeypot" aria-hidden="true">
+              <label for="inquiry-website">Leave this field blank</label>
+              <input
+                type="text"
+                id="inquiry-website"
+                name="_gotcha"
+                tabindex="-1"
+                autocomplete="off"
+              >
+            </div>
+
+            <div class="form-messages" aria-live="polite" aria-atomic="true">
+              <p class="form-status form-success" id="form-success" role="status" tabindex="-1" data-fs-success hidden>
+                Thank you. Your inquiry has been sent.
+              </p>
+              <p class="form-status form-error" id="form-error" role="alert" tabindex="-1" data-fs-error hidden>
+                Your inquiry could not be sent. Please try again or email HLuxPhotography@gmail.com directly.
+              </p>
+            </div>
+
+            <button class="button" id="inquiry-submit" type="submit" data-fs-submit-btn>Send Inquiry</button>
+          </form>
+      </div>
+    </section>
 
   </main>
 
@@ -117,6 +322,7 @@
     </p>
   </footer>
 
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
   <script src="js/main.js"></script>
 </body>
 </html>

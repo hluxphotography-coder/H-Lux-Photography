@@ -7,18 +7,143 @@ document.addEventListener("DOMContentLoaded", () => {
   const siteNav = document.getElementById("site-nav");
 
   if (menuToggle && siteNav) {
-  menuToggle.addEventListener("click", () => {
-    const isOpen = siteNav.classList.toggle("active");
-    menuToggle.setAttribute("aria-expanded", isOpen);
-  });
-
-  siteNav.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      siteNav.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = siteNav.classList.toggle("active");
+      menuToggle.setAttribute("aria-expanded", isOpen);
     });
-  });
-}
+
+    siteNav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        siteNav.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+
+  /* =========================
+     Institutional Inquiry Fields
+  ========================= */
+
+  const inquiryType = document.getElementById("inquiry-type");
+  const institutionalFields = document.getElementById("institutional-fields");
+  const institutionalFieldsStatus = document.getElementById("institutional-fields-status");
+  let updateInstitutionalFields = () => {};
+
+  if (inquiryType && institutionalFields) {
+    updateInstitutionalFields = (announce = false) => {
+      const shouldShow = inquiryType.value === "institutional";
+
+      institutionalFields.hidden = !shouldShow;
+
+      if (institutionalFieldsStatus) {
+        if (!announce) {
+          institutionalFieldsStatus.textContent = "";
+        } else {
+          institutionalFieldsStatus.textContent = shouldShow
+            ? "Optional institutional inquiry fields are now available."
+            : "Optional institutional inquiry fields are now hidden.";
+        }
+      }
+    };
+
+    updateInstitutionalFields();
+
+    inquiryType.addEventListener("change", () => {
+      updateInstitutionalFields(true);
+    });
+  }
+
+
+  /* =========================
+     Formspree AJAX Submission
+  ========================= */
+
+  const inquiryForm = document.getElementById("contact-form");
+  const inquirySubmit = document.getElementById("inquiry-submit");
+  const formSuccess = document.getElementById("form-success");
+  const formError = document.getElementById("form-error");
+
+  if (
+    inquiryForm &&
+    inquirySubmit &&
+    formSuccess &&
+    formError &&
+    typeof window.formspree === "function"
+  ) {
+    const submitButtonText = inquirySubmit.textContent;
+    let submissionInProgress = false;
+
+    const setSubmissionState = (isSubmitting) => {
+      submissionInProgress = isSubmitting;
+      inquirySubmit.disabled = isSubmitting;
+      inquirySubmit.textContent = isSubmitting ? "Sending…" : submitButtonText;
+      inquiryForm.setAttribute("aria-busy", String(isSubmitting));
+    };
+
+    const hideFormMessages = () => {
+      [formSuccess, formError].forEach(message => {
+        message.hidden = true;
+        message.removeAttribute("data-fs-active");
+      });
+    };
+
+    const showFormMessage = (message) => {
+      const otherMessage = message === formSuccess ? formError : formSuccess;
+
+      otherMessage.hidden = true;
+      otherMessage.removeAttribute("data-fs-active");
+      message.hidden = false;
+      message.setAttribute("data-fs-active", "");
+      message.focus({ preventScroll: true });
+
+      const prefersReducedMotion = window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      message.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "center"
+      });
+    };
+
+    const showSubmissionError = () => {
+      const errorIsAlreadyVisible = !formError.hidden && !submissionInProgress;
+
+      setSubmissionState(false);
+
+      if (errorIsAlreadyVisible) return;
+
+      showFormMessage(formError);
+    };
+
+    inquiryForm.addEventListener("submit", (event) => {
+      if (!submissionInProgress) return;
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    });
+
+    window.formspree("initForm", {
+      formElement: "#contact-form",
+      formId: "xyegzwdn",
+      disable: () => {
+        hideFormMessages();
+        setSubmissionState(true);
+      },
+      enable: () => {
+        setSubmissionState(false);
+      },
+      renderSuccess: () => {
+        inquiryForm.reset();
+        updateInstitutionalFields();
+        setSubmissionState(false);
+        showFormMessage(formSuccess);
+      },
+      renderFormError: showSubmissionError,
+      onError: showSubmissionError,
+      onFailure: showSubmissionError
+    });
+  }
 
 
   /* =========================
