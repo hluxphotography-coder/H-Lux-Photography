@@ -56,20 +56,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================
-     Formspree AJAX Submission
+     Form Submission
   ========================= */
 
-  const inquiryForm = document.getElementById("contact-form");
+  const contactForm = document.getElementById("contact-form");
   const inquirySubmit = document.getElementById("inquiry-submit");
   const formSuccess = document.getElementById("form-success");
   const formError = document.getElementById("form-error");
 
   if (
-    inquiryForm &&
+    contactForm &&
     inquirySubmit &&
     formSuccess &&
     formError &&
-    typeof window.formspree === "function"
+    typeof fetch === "function" &&
+    typeof FormData === "function"
   ) {
     const submitButtonText = inquirySubmit.textContent;
     let submissionInProgress = false;
@@ -78,13 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
       submissionInProgress = isSubmitting;
       inquirySubmit.disabled = isSubmitting;
       inquirySubmit.textContent = isSubmitting ? "Sending…" : submitButtonText;
-      inquiryForm.setAttribute("aria-busy", String(isSubmitting));
+      contactForm.setAttribute("aria-busy", String(isSubmitting));
     };
 
     const hideFormMessages = () => {
       [formSuccess, formError].forEach(message => {
         message.hidden = true;
-        message.removeAttribute("data-fs-active");
       });
     };
 
@@ -92,9 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const otherMessage = message === formSuccess ? formError : formSuccess;
 
       otherMessage.hidden = true;
-      otherMessage.removeAttribute("data-fs-active");
       message.hidden = false;
-      message.setAttribute("data-fs-active", "");
       message.focus({ preventScroll: true });
 
       const prefersReducedMotion = window.matchMedia &&
@@ -107,41 +105,40 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const showSubmissionError = () => {
-      const errorIsAlreadyVisible = !formError.hidden && !submissionInProgress;
-
       setSubmissionState(false);
-
-      if (errorIsAlreadyVisible) return;
-
       showFormMessage(formError);
     };
 
-    inquiryForm.addEventListener("submit", (event) => {
-      if (!submissionInProgress) return;
-
+    contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      event.stopImmediatePropagation();
-    });
 
-    window.formspree("initForm", {
-      formElement: "#contact-form",
-      formId: "xyegzwdn",
-      disable: () => {
-        hideFormMessages();
-        setSubmissionState(true);
-      },
-      enable: () => {
-        setSubmissionState(false);
-      },
-      renderSuccess: () => {
-        inquiryForm.reset();
+      if (submissionInProgress) return;
+
+      const formData = new FormData(contactForm);
+
+      hideFormMessages();
+      setSubmissionState(true);
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: contactForm.method || "post",
+          body: formData,
+          headers: {
+            Accept: "application/json"
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`Formspree returned ${response.status}`);
+        }
+
+        contactForm.reset();
         updateInstitutionalFields();
         setSubmissionState(false);
         showFormMessage(formSuccess);
-      },
-      renderFormError: showSubmissionError,
-      onError: showSubmissionError,
-      onFailure: showSubmissionError
+      } catch {
+        showSubmissionError();
+      }
     });
   }
 
