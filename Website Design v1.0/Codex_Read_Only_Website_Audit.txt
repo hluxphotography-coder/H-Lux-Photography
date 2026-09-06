@@ -1,0 +1,34 @@
+TASK: READ-ONLY INVENTORY BEFORE HENRY LUX WEBSITE REFINEMENT
+
+Work only in the currently opened Henry Lux photography website workspace. Verify that it corresponds to HenryLuxPhotography.com before doing anything else. Do not assume a directory is correct from its name alone. This is not the Lux Darkroom plugin project.
+
+Read the attached Henry_Lux_Website_Design_Specification_v1.0.md and any existing repository instructions, including AGENTS.md if present. The specification is the proposed design brief, not a description of the current code and not authorization to implement or deploy. If the attachment is unavailable, report that before proceeding with specification-dependent conclusions; do not invent its contents.
+
+Use a single scoped audit. Do not automatically delegate to additional agents. High reasoning is appropriate if available. Do not require Ultra unless a concrete complexity makes escalation worthwhile.
+
+BOUNDARIES
+This is a read-only audit. Do not edit, delete, rename, format, refactor, commit, reset, stash, switch branches, install dependencies, modify lockfiles, change hosting/DNS settings, or deploy. Do not discard existing uncommitted work. Do not submit the live Contact form or send email. Do not open unrelated private files or print secrets. Redact credentials embedded in configuration or remote URLs.
+
+You may inspect files, use existing read-only checks, and start an existing local preview only if it does not require installation or mutate tracked files. Keep permitted temporary screenshots/reports outside the repository. Do not run arbitrary repository scripts without checking their behavior. Where a check cannot be performed safely, mark it not tested and explain what would be needed. Do not claim that parsed HTML is a rendered browser audit.
+
+AUDIT
+1. Verify the repository identity, branch, HEAD commit, working-tree state, and apparent deployment entry point. Record these without changing anything. Do not reuse identifiers from another project.
+2. Map the existing public routes, page templates, stylesheets, scripts, gallery/viewer implementation, content/image records, and current build/deployment mechanism. Report whether Observation actually exists and whether it is linked or deployed; do not decide artistic readiness from code.
+3. Inspect existing navigation and mobile-menu behavior. Check whether the proposed Work label could safely use projects.html without moving routes. Identify any incoming URLs that a later redesign must preserve.
+4. Inspect Contact's actual initial and conditional states. Determine whether institutional fields are already hidden or disclosed. Inspect validation, endpoint, spam protection, loading/success/error states, and fallback email. Use request interception/mocking for interaction tests; do not submit real inquiries.
+5. Inspect the image pipeline: dimensions, srcset/sizes, loading priorities, reserved image space, payload sizes, derivative generation, and color-profile/metadata handling where tools permit. Do not modify or recompress photographs. Distinguish inspected file sizes from measured network transfers.
+6. Inspect the viewer: keyboard controls, focus entry/containment/return, visible close control, button labels and targets, image order, error handling, scroll restoration, touch behavior, browser zoom, and any browser-history/deep-link behavior. Identify reusable features before proposing replacement.
+7. Inspect no-JavaScript behavior, text contrast, semantic headings, alt text, reduced-motion handling, narrow-screen reflow, and mobile layout. Use desktop/mobile screenshots and available checks only when the environment supports them. Label emulation, untested browsers, and anything requiring real-device review.
+8. Inspect page titles, descriptions, canonical/social metadata, broken internal links, and maintenance friction when adding/reordering an image. Do not fabricate missing metadata or introduce analytics.
+9. Evaluate a bounded prototype: one homepage plus one representative project page using existing approved assets. At most two typography treatments. No framework migration, paid service, or dual-view gallery unless justified. Preserve originals and existing public content.
+
+RETURN
+A. A concise statement of what is verified and what remains untested.
+B. The actual repository/branch/commit and a small architecture map.
+C. Findings separated into REUSE, REPAIR, PROTOTYPE, and DEFER. Support each substantial finding with file paths and line references, or named browser evidence. Do not invent numerical quality scores.
+D. The five highest-priority actions, explaining their user benefit and likely scope, without claiming an exact credit cost.
+E. A minimal implementation plan for the homepage and one project page, with actual proposed files and checks. Include a safe checkpoint/branch plan for a later authorized editing stage, but do not execute it now.
+F. Any conflicts with the design specification, including requirements that are already satisfied.
+G. Whether there is a specific reason Ultra would materially help the next step. If not, recommend continuing with regular Codex.
+
+Stop after the report. No implementation or deployment. The next decision should be based on this evidence, not a new round of generic website research.
