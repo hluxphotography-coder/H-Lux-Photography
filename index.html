@@ -8,7 +8,7 @@
 
   <meta name="description" content="Henry Lux is a New York-based photographer working with portraits, still life, and personal photographic projects.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="preload" as="image" href="images/portraits/large/portrait-1.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="images/projects/full/01-reflection-mirror-blur.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css" />
 
   <script type="application/ld+json">
@@ -36,21 +36,18 @@
 }
 </script>
 </head>
-<body>
+<body class="prototype-home">
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <header class="site-header">
-    <a href="index.html" class="logo">HENRY LUX PHOTOGRAPHY</a>
+  <header class="site-header prototype-header">
+    <a href="index.html" class="logo" aria-label="Henry Lux, home" aria-current="page">HENRY LUX</a>
 
-   <nav class="site-nav" id="site-nav">
-     <a href="index.html" class="current-page" aria-current="page">Home</a>
-     <a href="portraits.html">Portraits</a>
-     <a href="still-life.html">Still Life</a>
-     <a href="projects.html">Projects</a>
-     <a href="about.html">About</a>
-     <a href="contact.html">Contact</a>
-   </nav>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+      <a href="projects.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
 
     <button
       type="button"
@@ -65,68 +62,77 @@
   </header>
 
   <main id="main-content">
+    <section class="home-opening" aria-labelledby="home-opening-title">
+      <div class="home-opening-copy">
+        <p class="eyebrow">Henry Lux / New York photographer</p>
+        <h1 id="home-opening-title">Fatherhood</h1>
+        <p class="home-opening-description">
+          Fatherhood comes from a desire to break cycles and create new narratives. It is shaped by presence, attention, and care.
+        </p>
+        <a class="text-link" href="fatherhood.html">View the project <span aria-hidden="true">&#8594;</span></a>
+      </div>
 
-  <section class="hero">
-    <div class="hero-image">
-      <img
-        src="images/portraits/large/portrait-1.jpg"
-        alt="Creative portrait with neon color and dramatic lighting"
-        fetchpriority="high"
-      >
-    </div>
+      <a class="home-opening-image" href="fatherhood.html" aria-label="View the Fatherhood project">
+        <img
+          src="images/projects/full/01-reflection-mirror-blur.jpg"
+          alt="Blurred reflection through a mirror with a child reaching toward the camera"
+          fetchpriority="high"
+        >
+      </a>
+    </section>
 
-    <div class="hero-text">
-      <p class="eyebrow">New York Photographer</p>
+    <section class="home-featured-project" aria-labelledby="labor-creates-title">
+      <a class="home-featured-image" href="labor-creates.html" aria-label="View the Labor Creates project">
+        <img
+          src="images/projects/labor-creates/full/01-labor-creates-door.jpg"
+          alt="Weathered Chinatown storefront door with posters and the yellow words Labor Creates written on the glass"
+          loading="lazy"
+          decoding="async"
+        >
+      </a>
 
-      <h1>Photography by Henry Lux.</h1>
+      <div class="home-featured-copy">
+        <p class="eyebrow">Project</p>
+        <h2 id="labor-creates-title">Labor Creates</h2>
+        <p>A photographic project about work, hustle, and survival in New York City.</p>
+        <a class="text-link" href="labor-creates.html">View the project <span aria-hidden="true">&#8594;</span></a>
+      </div>
+    </section>
 
-      <p>
-        Portraits, still life, and projects.
-      </p>
-    </div>
-  </section>
+    <section class="home-portfolios" aria-labelledby="selected-portfolios-title">
+      <div class="section-heading home-section-heading">
+        <div>
+          <p class="eyebrow">Selected portfolios</p>
+          <h2 id="selected-portfolios-title">Portraits and still life</h2>
+        </div>
+        <a class="text-link" href="projects.html">View all work <span aria-hidden="true">&#8594;</span></a>
+      </div>
 
-  <section class="featured">
-  <div class="section-heading">
-    <h2>Selected Work</h2>
-  </div>
+      <div class="home-portfolio-grid">
+        <a class="home-portfolio-link" href="portraits.html">
+          <img
+            src="images/portraits/thumb/portrait-thumb-4.jpg"
+            alt="Clean studio headshot with soft lighting"
+            loading="lazy"
+            decoding="async"
+          >
+          <span>Portraits</span>
+        </a>
 
-  <div class="featured-grid">
-    <a href="portraits.html">
-      <img
-        src="images/portraits/thumb/portrait-thumb-4.jpg"
-        alt="Clean studio headshot with soft lighting"
-        loading="lazy"
-        decoding="async"
-      >
-      <h3>Portraits</h3>
-    </a>
+        <a class="home-portfolio-link home-portfolio-link-offset" href="still-life.html">
+          <img
+            src="images/still-life/thumb/still-life-thumb-01-eggs-whisk.jpg"
+            alt="Still life photograph of eggs, a whisk, and kitchen objects"
+            loading="lazy"
+            decoding="async"
+          >
+          <span>Still Life</span>
+        </a>
+      </div>
+    </section>
+  </main>
 
-    <a href="still-life.html">
-      <img
-        src="images/still-life/thumb/still-life-thumb-01-eggs-whisk.jpg"
-        alt="Still life photograph of eggs, a whisk, and kitchen objects"
-        loading="lazy"
-        decoding="async"
-      >
-      <h3>Still Life</h3>
-    </a>
-
-    <a href="projects.html">
-      <img
-        src="images/projects/thumbs/01-reflection-mirror-blur-thumb.jpg"
-        alt="Blurred reflection through a mirror with a child reaching toward the camera"
-        loading="lazy"
-        decoding="async"
-      >
-      <h3>Projects</h3>
-    </a>
-  </div>
-</section>
-
-</main>
-
-  <footer class="site-footer">
+  <footer class="site-footer prototype-footer">
     <p>&copy; 2026 Henry Downes / Henry Lux. All images and content reserved. — 
       <a href="https://instagram.com/hluxphotography" target="_blank" rel="noopener noreferrer">Instagram</a>
     </p>
