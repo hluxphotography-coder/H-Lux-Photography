@@ -4,34 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Projects | HENRY LUX PHOTOGRAPHY</title>
+  <title>Work | HENRY LUX PHOTOGRAPHY</title>
 
   <meta
     name="description"
-    content="Photography projects by Henry Lux, including Fatherhood and Labor Creates."
+    content="Photography by Henry Lux: Fatherhood, Labor Creates, and selected portrait and still life portfolios."
   >
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body>
+<body class="work-index">
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <header class="site-header">
-    <a href="index.html" class="logo">HENRY LUX PHOTOGRAPHY</a>
+  <header class="site-header prototype-header">
+    <a href="index.html" class="logo" aria-label="Henry Lux, home">HENRY LUX</a>
 
-    <nav class="site-nav" id="site-nav">
-      <a href="index.html">Home</a>
-      <a href="portraits.html">Portraits</a>
-      <a href="still-life.html">Still Life</a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
       <a
         href="projects.html"
         class="current-page"
         aria-current="page"
       >
-        Projects
+        Work
       </a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -49,53 +46,76 @@
     </button>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" class="work-main">
+    <div class="work-intro">
+      <h1>Work</h1>
+    </div>
 
-    <section class="page-intro">
-      <p class="eyebrow">Portfolio</p>
+    <section class="work-projects" aria-labelledby="work-projects-title">
+      <h2 class="work-section-label" id="work-projects-title">Projects</h2>
 
-      <h1>Projects</h1>
+      <article class="work-project" aria-labelledby="fatherhood-title">
+        <div class="work-project-heading">
+          <p class="work-number">01</p>
+          <h3 class="work-project-title" id="fatherhood-title"><a href="fatherhood.html">Fatherhood</a></h3>
+        </div>
+        <a class="work-photo" href="fatherhood.html">
+          <img src="images/projects/thumbs/01-reflection-mirror-blur-thumb.jpg" alt="Blurred reflection through a mirror with a child reaching toward the camera" width="1200" height="809" decoding="async">
+        </a>
+        <div class="work-project-details">
+          <p>12 photographs</p>
+          <a href="fatherhood.html" class="work-link">View project<span class="work-sr-only">: Fatherhood</span></a>
+        </div>
+      </article>
 
-      <p>
-        Personal and documentary bodies of work.
-      </p>
+      <article class="work-project work-project-reverse" aria-labelledby="observation-title">
+        <div class="work-project-heading">
+          <p class="work-number">02</p>
+          <h3 class="work-project-title" id="observation-title">Observation</h3>
+        </div>
+        <div class="work-photo">
+          <img src="images/projects/observation/thumb/observation-01-yellow-helmets-thumb.jpg" alt="Two people in yellow helmets and reflective vests riding a motorcycle past pedestrians" width="1200" height="800" loading="lazy" decoding="async">
+        </div>
+        <div class="work-project-details">
+          <p>15 photographs</p>
+        </div>
+      </article>
+
+      <article class="work-project work-project-vertical" aria-labelledby="labor-title">
+        <div class="work-project-heading">
+          <p class="work-number">03</p>
+          <h3 class="work-project-title" id="labor-title"><a href="labor-creates.html">Labor<br>Creates</a></h3>
+        </div>
+        <a class="work-photo" href="labor-creates.html">
+          <img src="images/projects/labor-creates/thumbs/01-labor-creates-door-thumb.jpg" alt="Weathered Chinatown storefront door with posters and the yellow words Labor Creates written on the glass" width="800" height="1200" loading="lazy" decoding="async">
+        </a>
+        <div class="work-project-details">
+          <p>Lower Manhattan</p>
+          <a href="labor-creates.html" class="work-link">View project<span class="work-sr-only">: Labor Creates</span></a>
+        </div>
+      </article>
     </section>
 
-    <section class="project-list" aria-label="Photography projects">
-
-      <!-- Fatherhood -->
-
-      <a href="fatherhood.html" class="project-card">
-        <img
-          src="images/projects/thumbs/01-reflection-mirror-blur-thumb.jpg"
-          alt="Blurred reflection through a mirror with a child reaching toward the camera"
-        >
-
-        <div>
-          <h2>Fatherhood</h2>
-        </div>
-      </a>
-
-      <!-- Labor Creates -->
-
-      <a href="labor-creates.html" class="project-card">
-        <img
-          src="images/projects/labor-creates/thumbs/01-labor-creates-door-thumb.jpg"
-          alt="Weathered Chinatown storefront door with posters and the yellow words Labor Creates written on the glass"
-          loading="lazy"
-          decoding="async"
-        >
-
-        <div>
-          <h2>Labor Creates</h2>
-        </div>
-      </a>
-
+    <section class="work-portfolios" aria-labelledby="work-portfolios-title">
+      <h2 id="work-portfolios-title">Selected Portfolios</h2>
+      <div class="work-portfolio-grid">
+        <article class="work-portfolio">
+          <h3><a href="portraits.html">Portraits</a></h3>
+          <a href="portraits.html" class="work-portfolio-photo">
+            <img src="images/portraits/thumb/portrait-thumb-4.jpg" alt="Clean studio headshot with soft lighting" width="800" height="1200" loading="lazy" decoding="async">
+          </a>
+        </article>
+        <article class="work-portfolio">
+          <h3><a href="still-life.html">Still Life</a></h3>
+          <a href="still-life.html" class="work-portfolio-photo">
+            <img src="images/still-life/thumb/still-life-thumb-01-eggs-whisk.jpg" alt="Still life photograph of eggs, a whisk, and kitchen objects" width="1180" height="1200" loading="lazy" decoding="async">
+          </a>
+        </article>
+      </div>
     </section>
-
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer prototype-footer">
     <p>
       &copy; 2026 Henry Downes / Henry Lux. All images and content reserved. —
       <a

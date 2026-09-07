@@ -1451,3 +1451,199 @@ a {
     margin-top: 1rem;
   }
 }
+
+
+/* =========================
+   Work Index
+========================= */
+
+.work-index {
+  --work-gap: clamp(1rem, 2vw, 2rem);
+}
+.work-index .work-main {
+  width: min(100%, 90rem);
+  margin-inline: auto;
+  padding: clamp(2.5rem, 5vw, 5rem) clamp(1.25rem, 4vw, 4rem) clamp(5rem, 8vw, 8rem);
+}
+.work-index .work-intro,
+.work-index .work-project,
+.work-index .work-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--work-gap);
+}
+.work-index .work-intro {
+  align-items: baseline;
+  margin-bottom: clamp(2.5rem, 5vw, 5rem);
+}
+.work-index .work-intro h1 {
+  grid-column: 1 / 6;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.work-index .work-section-label,
+.work-index .work-number {
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.work-index .work-section-label {
+  margin-bottom: 1rem;
+}
+.work-index .work-project {
+  grid-template-rows: auto 1fr;
+  padding-block: clamp(2rem, 4vw, 4rem) clamp(3.5rem, 6vw, 6rem);
+  border-top: 1px solid #c8c4bd;
+}
+.work-index .work-project-heading {
+  grid-column: 1 / 6;
+  grid-row: 1;
+  padding-top: clamp(0rem, 2vw, 2rem);
+  min-width: 0;
+}
+.work-index .work-number {
+  margin-bottom: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+.work-index .work-project-title {
+  font-family: inherit;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+}
+.work-index .work-project-title a,
+.work-index .work-portfolio h3 a {
+  text-decoration: none;
+}
+.work-index .work-project-title a:hover,
+.work-index .work-portfolio h3 a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.13em;
+}
+.work-index .work-photo {
+  display: block;
+  grid-column: 6 / 13;
+  grid-row: 1 / 3;
+  align-self: start;
+  min-width: 0;
+}
+.work-index .work-photo img,
+.work-index .work-portfolio-photo img {
+  width: 100%;
+  height: auto;
+}
+.work-index .work-project-details {
+  grid-column: 1 / 6;
+  grid-row: 2;
+  margin-top: 1.75rem;
+  font-size: 0.875rem;
+  color: #585550;
+}
+.work-index .work-link {
+  display: inline-block;
+  min-height: 44px;
+  padding-block: 0.65rem;
+  margin-top: 0.5rem;
+  color: #1f1f1f;
+  text-underline-offset: 0.3em;
+}
+.work-index .work-project-reverse .work-photo {
+  grid-column: 1 / 8;
+}
+.work-index .work-project-reverse .work-project-heading,
+.work-index .work-project-reverse .work-project-details {
+  grid-column: 9 / 13;
+}
+.work-index .work-project-vertical .work-photo {
+  grid-column: 7 / 12;
+}
+.work-index .work-portfolios {
+  border-top: 1px solid #c8c4bd;
+  padding-top: clamp(2rem, 4vw, 4rem);
+}
+.work-index .work-portfolios h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+}
+.work-index .work-portfolio {
+  grid-column: span 6;
+  min-width: 0;
+}
+.work-index .work-portfolio h3 {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.work-index .work-portfolio-photo {
+  display: block;
+}
+.work-index a:focus-visible,
+.work-index button:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 5px;
+}
+.work-index .work-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .work-index .menu-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+@media (max-width: 700px) {
+  .work-index .work-project {
+    grid-template-rows: auto auto auto;
+    row-gap: 1.5rem;
+    padding-block: 1.75rem 3.5rem;
+  }
+  .work-index .work-project .work-project-heading,
+  .work-index .work-project .work-photo,
+  .work-index .work-project .work-project-details {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+  .work-index .work-project .work-project-heading {
+    grid-row: 1;
+  }
+  .work-index .work-project .work-photo {
+    grid-row: 2;
+  }
+  .work-index .work-project .work-project-details {
+    grid-row: 3;
+    margin-top: 0;
+  }
+  .work-index .work-number {
+    margin-bottom: 0.65rem;
+  }
+  .work-index .work-project-title {
+    font-size: clamp(1.75rem, 7.5vw, 3.25rem);
+    text-transform: uppercase;
+  }
+  .work-index .work-portfolio {
+    grid-column: 1 / -1;
+  }
+  .work-index .work-portfolio-grid {
+    row-gap: 2.75rem;
+  }
+}
+@media (max-width: 400px) {
+  .work-index .work-intro h1 {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
