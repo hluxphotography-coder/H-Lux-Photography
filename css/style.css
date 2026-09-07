@@ -1600,7 +1600,7 @@ a {
   white-space: nowrap;
 }
 @media (max-width: 760px) {
-  .work-index .menu-toggle {
+  .prototype-header .menu-toggle {
     min-height: 44px;
     min-width: 44px;
   }
