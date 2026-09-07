@@ -1647,3 +1647,130 @@ a {
     justify-self: start;
   }
 }
+
+/* =========================
+   Observation — fixed photographic sequence
+   All layout overrides are scoped to this project.
+========================= */
+
+.observation-project .observation-intro {
+  width: min(100%, 90rem);
+  margin-inline: auto;
+  padding: clamp(2rem, 4vw, 4rem) clamp(1.25rem, 5vw, 5rem) clamp(2.5rem, 5vw, 5rem);
+}
+
+.observation-project .observation-intro .back-link {
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+}
+
+.observation-project .observation-intro h1 {
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  line-height: 1.03;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.observation-project .observation-metadata {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #585550;
+}
+
+.observation-project .observation-sequence {
+  width: min(100%, 90rem);
+  margin-inline: auto;
+  padding: 0 clamp(1.25rem, 5vw, 5rem) clamp(5rem, 8vw, 8rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4.5rem, 9vw, 9rem);
+}
+
+.observation-project .observation-group {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.observation-project .observation-sequence a {
+  display: block;
+  min-width: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.observation-project .observation-sequence img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: none;
+}
+
+.observation-project .observation-sequence a:hover img {
+  transform: none;
+}
+
+.observation-project .observation-wide {
+  max-width: 75rem;
+}
+
+.observation-project .observation-pair {
+  max-width: 78rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 3rem);
+  align-items: start;
+}
+
+.observation-project .observation-portrait {
+  max-width: 34rem;
+}
+
+.observation-project .observation-square {
+  max-width: 42rem;
+}
+
+.observation-project .observation-inset {
+  width: 72%;
+  max-width: 58rem;
+  margin-left: 4%;
+  margin-right: auto;
+}
+
+.observation-project .observation-inset-right {
+  margin-left: auto;
+  margin-right: 4%;
+}
+
+.observation-project .observation-finale {
+  margin-top: clamp(1rem, 3vw, 3rem);
+}
+
+.observation-project .project-end {
+  width: min(calc(100% - 2.5rem), 80rem);
+}
+
+.observation-project .observation-sequence a:focus-visible,
+.observation-project .logo:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 5px;
+}
+
+@media (max-width: 700px) {
+  .observation-project .observation-sequence {
+    gap: 4.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .observation-project .observation-pair {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .observation-project .observation-inset {
+    width: 88%;
+    margin-inline: auto;
+  }
+
+  .observation-project .observation-finale {
+    margin-top: 1rem;
+  }
+}
