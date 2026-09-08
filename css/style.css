@@ -687,6 +687,36 @@ a {
   cursor: zoom-out;
 }
 
+.lightbox-content.is-unavailable {
+  visibility: hidden;
+}
+
+.lightbox-feedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(24rem, calc(100% - 8rem));
+  text-align: center;
+  color: #1f1f1f;
+}
+
+.lightbox-feedback p {
+  margin: 0;
+}
+
+.lightbox-retry {
+  min-width: 44px;
+  min-height: 44px;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(31, 31, 31, 0.15);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
 .lightbox-close {
   position: absolute;
   top: 2rem;
@@ -775,7 +805,8 @@ a {
 
 .lightbox-close:focus-visible,
 .lightbox-zoom:focus-visible,
-.lightbox-nav:focus-visible {
+.lightbox-nav:focus-visible,
+.lightbox-retry:focus-visible {
   outline: 1px solid #1f1f1f;
   outline-offset: 4px;
 }

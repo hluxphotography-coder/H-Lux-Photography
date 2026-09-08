@@ -180,6 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeGalleryLink = null;
   let touchStartX = 0;
   let touchEndX = 0;
+  let lightboxMessage = null;
+  let lightboxRetry = null;
 
   if (lightbox) {
     lightbox.setAttribute("role", "dialog");
@@ -195,6 +197,20 @@ document.addEventListener("DOMContentLoaded", () => {
       lightboxPosition.setAttribute("aria-atomic", "true");
       lightbox.append(lightboxPosition);
     }
+
+    const feedback = document.createElement("div");
+    feedback.className = "lightbox-feedback";
+    lightboxMessage = document.createElement("p");
+    lightboxMessage.setAttribute("role", "status");
+    lightboxMessage.setAttribute("aria-live", "polite");
+    lightboxMessage.setAttribute("aria-atomic", "true");
+    lightboxRetry = document.createElement("button");
+    lightboxRetry.type = "button";
+    lightboxRetry.className = "lightbox-retry";
+    lightboxRetry.textContent = "Retry";
+    lightboxRetry.hidden = true;
+    feedback.append(lightboxMessage, lightboxRetry);
+    lightbox.append(feedback);
   }
 
   const setBackgroundInert = isInert => {
@@ -236,8 +252,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const thumbnail = currentLink.querySelector("img");
     const imgAlt = thumbnail ? thumbnail.getAttribute("alt") : "Expanded portfolio image";
 
-    lightboxImg.src = fullSizeUrl;
+    // Hide the previous photograph until this request succeeds.
+    lightboxImg.classList.add("is-unavailable");
+    lightboxMessage.textContent = "";
+    if (document.activeElement === lightboxRetry && lightboxClose) {
+      lightboxClose.focus({ preventScroll: true });
+    }
+    lightboxRetry.hidden = true;
+    // Clearing src also allows Retry to request the same URL again.
+    lightboxImg.removeAttribute("src");
     lightboxImg.alt = imgAlt;
+    lightboxImg.src = fullSizeUrl;
     lightboxImg.classList.remove("expanded");
 
     if (lightboxPrev) {
@@ -281,6 +306,8 @@ document.addEventListener("DOMContentLoaded", () => {
     lightboxImg.classList.remove("expanded");
     lightboxImg.removeAttribute("src");
     lightboxImg.alt = "";
+    lightboxMessage.textContent = "";
+    lightboxRetry.hidden = true;
     document.body.style.overflow = "";
     setBackgroundInert(false);
 
@@ -344,6 +371,28 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (lightbox && lightboxImg && galleryLinks.length > 0) {
+    lightboxImg.addEventListener("load", () => {
+      // Inspect the current request so late events cannot reveal a stale image.
+      if (!lightbox.classList.contains("active") || !lightboxImg.complete || !lightboxImg.naturalWidth) return;
+
+      lightboxImg.classList.remove("is-unavailable");
+      lightboxMessage.textContent = "";
+      lightboxRetry.hidden = true;
+    });
+
+    lightboxImg.addEventListener("error", () => {
+      if (!lightbox.classList.contains("active") || !lightboxImg.hasAttribute("src") ||
+          !lightboxImg.complete || lightboxImg.naturalWidth) return;
+
+      lightboxImg.classList.add("is-unavailable");
+      lightboxMessage.textContent = "Image could not be loaded.";
+      lightboxRetry.hidden = false;
+    });
+
+    lightboxRetry.addEventListener("click", () => {
+      showImage(currentIndex);
+    });
+
     galleryLinks.forEach((link, index) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
