@@ -1774,3 +1774,163 @@ a {
     margin-top: 1rem;
   }
 }
+
+/* =========================
+   Fatherhood — editorial project
+   Preserve the authored photographic order at every width.
+========================= */
+
+.fatherhood-project .fatherhood-intro,
+.fatherhood-project .fatherhood-sequence {
+  width: min(100%, 90rem);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 5rem);
+}
+
+.fatherhood-project .fatherhood-intro {
+  padding-top: clamp(2rem, 4vw, 4rem);
+  padding-bottom: clamp(4.5rem, 8vw, 8rem);
+}
+
+.fatherhood-project .back-link {
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+}
+
+.fatherhood-project .fatherhood-opening {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  column-gap: clamp(2rem, 5vw, 5rem);
+  row-gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.fatherhood-project .fatherhood-title {
+  grid-column: 1 / -1;
+}
+
+.fatherhood-project .fatherhood-title h1 {
+  font-size: clamp(2.65rem, 8vw, 7rem);
+  font-weight: 600;
+  line-height: 1.03;
+  letter-spacing: 0.01em;
+}
+
+.fatherhood-project .fatherhood-opening-image {
+  display: block;
+  padding: 0;
+}
+
+.fatherhood-project .artist-statement {
+  margin: 0;
+  max-width: 32rem;
+}
+
+.fatherhood-project .artist-statement p:not(.eyebrow) {
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.fatherhood-project .gallery a {
+  display: block;
+  min-width: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.fatherhood-project .gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: none;
+}
+
+.fatherhood-project .gallery a:hover img {
+  transform: none;
+}
+
+.fatherhood-project .fatherhood-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4.5rem, 9vw, 8rem);
+  padding-top: 0;
+  padding-bottom: clamp(4.5rem, 8vw, 7rem);
+}
+
+.fatherhood-project .fatherhood-group {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.fatherhood-project .fatherhood-wide {
+  max-width: 70rem;
+}
+
+.fatherhood-project .fatherhood-compact {
+  max-width: 32rem;
+}
+
+.fatherhood-project .fatherhood-square {
+  max-width: 43rem;
+}
+
+.fatherhood-project .fatherhood-inset {
+  width: 76%;
+  max-width: 55rem;
+  margin-right: 0;
+}
+
+.fatherhood-project .fatherhood-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 3rem);
+  align-items: center;
+  max-width: 72rem;
+}
+
+.fatherhood-project .fatherhood-finale {
+  margin-top: clamp(1rem, 3vw, 3rem);
+}
+
+.fatherhood-project .project-end {
+  width: min(calc(100% - 2.5rem), 80rem);
+}
+
+.fatherhood-project .gallery a:focus-visible,
+.fatherhood-project .logo:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 5px;
+}
+
+@media (max-width: 700px) {
+  .fatherhood-project .fatherhood-opening {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .fatherhood-project .artist-statement {
+    padding-top: 0.5rem;
+  }
+
+  .fatherhood-project .fatherhood-sequence {
+    gap: 4.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .fatherhood-project .fatherhood-pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .fatherhood-project .fatherhood-compact {
+    width: 88%;
+  }
+
+  .fatherhood-project .fatherhood-inset {
+    width: 88%;
+    margin-inline: auto;
+  }
+
+  .fatherhood-project .fatherhood-finale {
+    margin-top: 1rem;
+  }
+}
