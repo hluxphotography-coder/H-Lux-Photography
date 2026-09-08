@@ -8,7 +8,10 @@
 
   <meta name="description" content="Henry Lux is a New York-based photographer working with portraits, still life, and personal photographic projects.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="preload" as="image" href="images/projects/full/01-reflection-mirror-blur.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="images/projects/full/01-reflection-mirror-blur.jpg"
+    imagesrcset="images/projects/thumbs/01-reflection-mirror-blur-thumb.jpg 1200w, images/projects/full/01-reflection-mirror-blur.jpg 2400w"
+    imagesizes="(max-width: 400px) calc(100vw - 2.5rem), (max-width: 760px) min(90vw, 32rem), (max-width: 900px) calc((90vw - 3rem) / 1.75 + 1px), calc((min(100vw, 100rem) - 2 * clamp(1.25rem, 5vw, 5rem) - clamp(3rem, 8vw, 9rem)) * 0.6 + 1px)"
+    fetchpriority="high">
   <link rel="stylesheet" href="css/style.css" />
 
   <script type="application/ld+json">
@@ -74,6 +77,8 @@
       <a class="home-opening-image" href="fatherhood.html" aria-label="View the Fatherhood project">
         <img
           src="images/projects/full/01-reflection-mirror-blur.jpg"
+          srcset="images/projects/thumbs/01-reflection-mirror-blur-thumb.jpg 1200w, images/projects/full/01-reflection-mirror-blur.jpg 2400w"
+          sizes="(max-width: 400px) calc(100vw - 2.5rem), (max-width: 760px) min(90vw, 32rem), (max-width: 900px) calc((90vw - 3rem) / 1.75 + 1px), calc((min(100vw, 100rem) - 2 * clamp(1.25rem, 5vw, 5rem) - clamp(3rem, 8vw, 9rem)) * 0.6 + 1px)"
           width="2400" height="1618"
           alt="Blurred reflection through a mirror with a child reaching toward the camera"
           fetchpriority="high"
@@ -85,6 +90,8 @@
       <a class="home-featured-image" href="labor-creates.html" aria-label="View the Labor Creates project">
         <img
           src="images/projects/labor-creates/full/01-labor-creates-door.jpg"
+          srcset="images/projects/labor-creates/thumbs/01-labor-creates-door-thumb.jpg 800w, images/projects/labor-creates/full/01-labor-creates-door.jpg 1600w"
+          sizes="(max-width: 400px) calc(100vw - 2.5rem), (max-width: 760px) 90vw, (max-width: 900px) min(calc((90vw - 3rem) * 0.675), calc(90vw - 18rem)), calc((min(100vw, 96rem) - 2 * clamp(1.25rem, 5vw, 5rem) - clamp(2.5rem, 7vw, 8rem)) * 0.675)"
           width="1600" height="2400"
           alt="Weathered Chinatown storefront door with posters and the yellow words Labor Creates written on the glass"
           loading="lazy"
