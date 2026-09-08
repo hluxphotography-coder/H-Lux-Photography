@@ -2361,3 +2361,107 @@ a {
     margin-bottom: 2rem;
   }
 }
+
+/* Curated homepage: authored projects, followed by the complete Work index. */
+.prototype-home .home-observation,
+.prototype-home .home-labor {
+  width: min(100%, 96rem);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 5rem);
+  display: grid;
+  align-items: center;
+}
+
+.prototype-home .home-observation {
+  grid-template-columns: min(42vw, 40rem) minmax(0, 1fr);
+  gap: clamp(3rem, 6vw, 6rem);
+  padding-block: clamp(4rem, 7vw, 7rem);
+}
+
+.prototype-home .home-project-image {
+  display: block;
+}
+
+.prototype-home .home-project-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.prototype-home .home-project-image:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 5px;
+}
+
+.prototype-home .home-project-copy {
+  max-width: 25rem;
+}
+
+.prototype-home .home-project-copy h2 {
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.prototype-home .home-project-copy > p {
+  margin-bottom: 1.5rem;
+}
+
+.prototype-home .home-labor {
+  grid-template-columns: minmax(0, 1fr) min(19vw, 15rem);
+  gap: clamp(3rem, 7vw, 7rem);
+  padding-block: clamp(4rem, 8vw, 8rem) clamp(6rem, 10vw, 10rem);
+}
+
+.prototype-home .home-labor .home-project-copy {
+  justify-self: end;
+}
+
+.prototype-home .home-labor .home-project-image {
+  margin-right: clamp(0rem, 2vw, 2rem);
+}
+
+.prototype-home .home-labor .home-project-copy h2 {
+  font-size: clamp(2.25rem, 3.4vw, 3.25rem);
+}
+
+.prototype-home .home-work-route {
+  width: min(100%, 96rem);
+  margin-inline: auto;
+  padding: 0 clamp(1.25rem, 5vw, 5rem) clamp(3rem, 5vw, 5rem);
+}
+
+@media (max-width: 760px) {
+  .prototype-home .home-observation {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding-block: 3.5rem;
+  }
+
+  .prototype-home .home-observation .home-project-image {
+    width: min(calc(100% - 1rem), 28rem);
+  }
+
+  .prototype-home .home-project-copy h2 {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+  }
+
+  .prototype-home .home-labor {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-block: 3.5rem 5rem;
+  }
+
+  .prototype-home .home-labor .home-project-copy {
+    justify-self: start;
+    max-width: 22rem;
+  }
+
+  .prototype-home .home-labor .home-project-image {
+    width: min(52vw, 12rem);
+    justify-self: end;
+    margin-right: 1rem;
+  }
+
+}
