@@ -2139,3 +2139,177 @@ a {
     gap: 2rem;
   }
 }
+
+/* =========================
+   Contact — editorial inquiry layout
+========================= */
+
+.contact-page .contact-editorial {
+  width: min(100%, 90rem);
+  margin-inline: auto;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 5vw, 5rem) clamp(4rem, 8vw, 7rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: start;
+}
+
+.contact-page .contact-identity {
+  grid-column: 1 / 5;
+}
+
+.contact-page .contact-identity h1 {
+  margin-bottom: 2.5rem;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 1.03;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.contact-page .contact-name {
+  font-size: 1.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.contact-page .contact-email {
+  margin-top: 0.75rem;
+  overflow-wrap: anywhere;
+  display: inline-block;
+}
+
+.contact-page .contact-introduction {
+  max-width: 30ch;
+  margin-top: 2rem;
+  color: #555;
+}
+
+.contact-page .inquiry-panel {
+  grid-column: 6 / -1;
+  width: 100%;
+  max-width: 44rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.contact-page .inquiry-panel h2 {
+  font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.contact-page .inquiry-panel > p {
+  max-width: 55ch;
+}
+
+.contact-page .form-required-note {
+  margin-top: 1rem;
+}
+
+.contact-page .project-details {
+  margin: 1.5rem 0;
+}
+
+.contact-page .project-details summary {
+  min-height: 3rem;
+  padding-block: 0.65rem;
+  cursor: pointer;
+}
+
+.contact-page .project-details summary:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 3px;
+}
+
+.contact-page .project-details > .form-grid {
+  margin-top: 1.25rem;
+}
+
+.contact-page .form-grid {
+  gap: 1.5rem;
+  align-items: end;
+}
+
+.contact-page .form-field label {
+  font-weight: 500;
+}
+
+.contact-page .required-label,
+.contact-page .optional-label {
+  font-size: 0.875rem;
+}
+
+.contact-page .form-field input,
+.contact-page .form-field select,
+.contact-page .form-field textarea {
+  min-width: 0;
+  background: transparent;
+}
+
+.contact-page .institutional-fields {
+  padding: 0;
+  margin: 2rem 0;
+  border: 0;
+  background: transparent;
+}
+
+.contact-page .institutional-fields legend {
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.contact-page .inquiry-form .button {
+  min-height: 3rem;
+  padding: 0.65rem 1.25rem;
+  border: 1px solid #1f1f1f;
+  background: transparent;
+  color: #1f1f1f;
+  font: inherit;
+  cursor: pointer;
+  transition: none;
+}
+
+.contact-page .inquiry-form .button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.contact-page .logo:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 5px;
+}
+
+@media (max-width: 1000px) {
+  .contact-page .contact-identity {
+    grid-column: 1 / 6;
+  }
+
+  .contact-page .inquiry-panel {
+    grid-column: 7 / -1;
+  }
+
+  .contact-page .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .contact-page .contact-editorial {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 3rem;
+  }
+
+  .contact-page .contact-identity,
+  .contact-page .inquiry-panel {
+    grid-column: 1;
+  }
+
+  .contact-page .contact-identity h1 {
+    margin-bottom: 2rem;
+  }
+}

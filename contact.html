@@ -40,7 +40,7 @@
 }
 </script>
 </head>
-<body>
+<body class="contact-page">
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -67,48 +67,23 @@
 
   <main id="main-content">
 
-    <section class="contact-section contact-grid">
-      <div class="contact-text">
-        <p class="eyebrow">Contact</p>
-
+    <section class="contact-editorial">
+      <div class="contact-identity">
         <h1>Contact</h1>
 
-        <p class="lead">
+        <p class="contact-name">Henry Lux</p>
+        <p>New York City</p>
+        <a class="text-link contact-email" href="mailto:HLuxPhotography@gmail.com">HLuxPhotography@gmail.com</a>
+
+        <p class="contact-introduction">
           For photography inquiries, collaborations, or project-related work, please get in touch.
         </p>
-
-        <div class="contact-details">
-          <p>
-            <strong>Email</strong><br>
-            <a href="mailto:HLuxPhotography@gmail.com">
-              HLuxPhotography@gmail.com
-            </a>
-          </p>
-
-          <p>
-            <strong>Based in</strong><br>
-            New York City
-          </p>
-        </div>
-
-        <a class="button" href="mailto:HLuxPhotography@gmail.com?subject=Photography%20Inquiry">
-          Email directly
-        </a>
-      </div>
-
-      <div class="contact-image">
-        <img
-          src="images/site/henry-lux-headshot.jpg"
-          alt="Portrait of Henry Lux"
-          loading="lazy"
-          decoding="async"
-        >
       </div>
 
       <div class="inquiry-panel">
-          <h2>Tell me about your project</h2>
+          <h2>Send an inquiry</h2>
           <p>
-            Share a little about your project below. You may also use the direct email option above.
+            Use the form below for photography inquiries, collaborations, and project-related work. You can also email me directly.
           </p>
           <p class="form-required-note" id="form-required-note">
             Fields marked “required” must be completed.
@@ -145,47 +120,6 @@
                   autocomplete="email"
                   inputmode="email"
                   required
-                >
-              </div>
-
-              <div class="form-field">
-                <label for="inquiry-organization">Organization or department <span class="optional-label">(optional)</span></label>
-                <input
-                  type="text"
-                  id="inquiry-organization"
-                  name="organization_or_department"
-                  autocomplete="organization"
-                >
-              </div>
-
-              <div class="form-field">
-                <label for="inquiry-phone">Phone number <span class="optional-label">(optional)</span></label>
-                <input
-                  type="tel"
-                  id="inquiry-phone"
-                  name="phone"
-                  autocomplete="tel"
-                  inputmode="tel"
-                >
-              </div>
-
-              <div class="form-field">
-                <label for="preferred-date">Preferred event or project date <span class="optional-label">(optional)</span></label>
-                <input
-                  type="date"
-                  id="preferred-date"
-                  name="preferred_event_or_project_date"
-                  autocomplete="off"
-                >
-              </div>
-
-              <div class="form-field">
-                <label for="inquiry-location">Location <span class="optional-label">(optional)</span></label>
-                <input
-                  type="text"
-                  id="inquiry-location"
-                  name="location"
-                  autocomplete="off"
                 >
               </div>
 
@@ -273,6 +207,52 @@
                 required
               ></textarea>
             </div>
+
+            <details class="project-details">
+              <summary>Project details (optional)</summary>
+              <div class="form-grid">
+              <div class="form-field">
+                <label for="inquiry-organization">Organization or department <span class="optional-label">(optional)</span></label>
+                <input
+                  type="text"
+                  id="inquiry-organization"
+                  name="organization_or_department"
+                  autocomplete="organization"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="inquiry-phone">Phone number <span class="optional-label">(optional)</span></label>
+                <input
+                  type="tel"
+                  id="inquiry-phone"
+                  name="phone"
+                  autocomplete="tel"
+                  inputmode="tel"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="preferred-date">Preferred event or project date <span class="optional-label">(optional)</span></label>
+                <input
+                  type="date"
+                  id="preferred-date"
+                  name="preferred_event_or_project_date"
+                  autocomplete="off"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="inquiry-location">Location <span class="optional-label">(optional)</span></label>
+                <input
+                  type="text"
+                  id="inquiry-location"
+                  name="location"
+                  autocomplete="off"
+                >
+              </div>
+              </div>
+            </details>
 
             <div class="form-honeypot" aria-hidden="true">
               <label for="inquiry-website">Leave this field blank</label>

@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const shouldShow = inquiryType.value === "institutional";
 
       institutionalFields.hidden = !shouldShow;
+      institutionalFields.disabled = !shouldShow;
 
       if (institutionalFieldsStatus) {
         if (!announce) {
