@@ -46,7 +46,7 @@
 }
 </script>
 </head>
-<body>
+<body class="about-page">
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -71,39 +71,50 @@
     </button>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" class="about-editorial">
+    <h1>About</h1>
 
-    <section class="about-section">
-      <div class="about-text">
-        <p class="eyebrow">About</p>
+    <p class="about-introduction">
+      Henry Lux is a New York–based photographer working across portraiture, still life, and personal photographic projects.
+    </p>
 
-        <h1>Henry Lux</h1>
+    <figure class="about-working-image">
+      <img
+        src="images/site/about-henry-lux.jpg"
+        alt="Henry Lux photographing a portrait session in the studio"
+        width="1600"
+        height="2000"
+        decoding="async"
+      >
+    </figure>
 
-        <p class="lead">
-          Henry Lux is a photographer based in New York. He is currently pursuing 
-          a bachelor’s degree in Studio Art at Hunter College, CUNY.
-        </p>
+    <div class="about-details">
+      <div class="about-practice">
+        <p>His personal work includes Fatherhood, Observation, and Labor Creates.</p>
+      </div>
 
+      <section aria-labelledby="education-heading">
+        <h2 id="education-heading">Education</h2>
         <p>
-          His background includes coursework in photography, studio lighting, and 
-          studio art at the School of Visual Arts, LaGuardia Community College, and 
-          Hunter College. He received The Arnold &amp; Augusta Newman Foundation Scholarship 
+          He is currently pursuing a bachelor’s degree in Studio Art at Hunter College, CUNY.
+        </p>
+        <p>
+          His background includes coursework in photography, studio lighting, and
+          studio art at the School of Visual Arts, LaGuardia Community College, and
+          Hunter College.
+        </p>
+      </section>
+
+      <section aria-labelledby="recognition-heading">
+        <h2 id="recognition-heading">Recognition</h2>
+        <p>
+          He received The Arnold &amp; Augusta Newman Foundation Scholarship
           at LaGuardia Community College.
         </p>
+      </section>
 
-        <a href="contact.html" class="button">Contact</a>
-      </div>
-
-      <div class="about-image">
-        <img
-          src="images/site/about-henry-lux.jpg"
-          alt="Henry Lux photographing a portrait session in the studio"
-          loading="lazy"
-          decoding="async"
->
-      </div>
-    </section>
-
+      <a href="contact.html" class="text-link">Contact <span aria-hidden="true">&#8599;</span></a>
+    </div>
   </main>
 
   <footer class="site-footer prototype-footer">

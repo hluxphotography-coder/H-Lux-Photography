@@ -2037,3 +2037,105 @@ a {
     max-width: none;
   }
 }
+
+/* =========================
+   About — practice before credentials
+========================= */
+
+.about-page .about-editorial {
+  width: min(100%, 90rem);
+  margin-inline: auto;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 5vw, 5rem) clamp(4rem, 8vw, 7rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2.5vw, 2rem);
+  row-gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.about-page .about-editorial h1 {
+  grid-column: 1 / 7;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 1.03;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.about-page .about-introduction {
+  grid-column: 8 / -1;
+  max-width: 25ch;
+  font-size: clamp(1.6rem, 2.5vw, 2.25rem);
+  line-height: 1.35;
+}
+
+.about-page .about-working-image {
+  grid-column: 2 / 7;
+}
+
+.about-page .about-working-image img {
+  width: 100%;
+  height: auto;
+}
+
+.about-page .about-details {
+  grid-column: 8 / -1;
+  max-width: 56ch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.about-page .about-details h2 {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #555;
+}
+
+.about-page .about-details p {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.about-page .about-details p + p {
+  margin-top: 1rem;
+}
+
+.about-page .about-practice p {
+  font-size: 1.2rem;
+  line-height: 1.55;
+}
+
+.about-page .logo:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: 5px;
+}
+
+@media (max-width: 1000px) {
+  .about-page .about-working-image {
+    grid-column: 1 / 7;
+  }
+}
+
+@media (max-width: 760px) {
+  .about-page .about-editorial {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
+  }
+
+  .about-page .about-editorial > *,
+  .about-page .about-editorial h1 {
+    grid-column: 1;
+  }
+
+  .about-page .about-working-image {
+    margin-block: 0.5rem;
+  }
+
+  .about-page .about-details {
+    gap: 2rem;
+  }
+}
