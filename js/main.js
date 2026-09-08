@@ -249,9 +249,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (lightboxPosition) {
-      const numberWidth = String(galleryLinks.length).length;
+      const numberWidth = Math.max(2, String(galleryLinks.length).length);
       const currentNumber = String(currentIndex + 1).padStart(numberWidth, "0");
-      lightboxPosition.textContent = `${currentNumber} / ${galleryLinks.length}`;
+      const totalNumber = String(galleryLinks.length).padStart(numberWidth, "0");
+      lightboxPosition.textContent = `${currentNumber} / ${totalNumber}`;
     }
 
     updateZoomButton();
