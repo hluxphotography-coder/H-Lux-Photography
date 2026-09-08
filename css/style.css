@@ -58,6 +58,11 @@ a {
   #main-content {
     scroll-margin-top: 5.25rem;
   }
+
+  html:not(.js-enabled) #main-content {
+    /* Clear the taller sticky header when fallback navigation stays expanded. */
+    scroll-margin-top: 16rem;
+  }
 }
 
 
