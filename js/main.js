@@ -1,6 +1,270 @@
 document.documentElement.classList.add("js-enabled");
 
+/* Inline photographs only; the full-image viewer owns its own recovery UI. */
+const initializeInlineImageRecovery = () => {
+  const photographs = Array.from(document.querySelectorAll('main#main-content img[src^="images/"]'))
+    .filter(image => !image.closest("#lightbox"));
+  if (!photographs.length) return;
+
+  const main = document.getElementById("main-content");
+  const failed = new Set();
+  const states = new Map(photographs.map(image => [image, {
+    automaticAttempts: 0,
+    automaticArmed: false,
+    inFlight: false
+  }]));
+  const queued = new Map();
+  const manualPending = new Set();
+  const automaticDelays = [2000, 8000, 20000];
+  let onlineHint = navigator.onLine !== false;
+  let wakeTimer = null;
+  let nextStartAt = 0;
+  let announcedFailure = false;
+  let announcementTimer = null;
+  const fallbacks = new Map();
+
+  // One quiet announcement channel; visual recovery belongs to each photograph.
+  const status = document.createElement("p");
+  status.className = "inline-image-recovery-status";
+  status.setAttribute("role", "status");
+  status.setAttribute("aria-live", "polite");
+  status.setAttribute("aria-atomic", "true");
+  main.append(status);
+
+  const isEligible = image => failed.has(image) && image.isConnected &&
+    !states.get(image).inFlight && image.complete && image.naturalWidth === 0 &&
+    Boolean(image.getAttribute("src"));
+
+  const positionFallback = image => {
+    const view = fallbacks.get(image);
+    if (!view || view.panel.hidden) return;
+    const photo = image.getBoundingClientRect();
+    const host = view.host.getBoundingClientRect();
+    Object.assign(view.panel.style, {
+      left: `${photo.left - host.left - view.host.clientLeft + view.host.scrollLeft}px`,
+      top: `${photo.top - host.top - view.host.clientTop + view.host.scrollTop}px`,
+      width: `${photo.width}px`,
+      height: `${photo.height}px`
+    });
+    // Small insets may need a scrollable description, with a real keyboard stop.
+    const scrollable = view.descriptionViewport.scrollHeight > view.descriptionViewport.clientHeight + 1;
+    const descriptionFocused = document.activeElement === view.descriptionViewport;
+    view.descriptionViewport.tabIndex = scrollable || descriptionFocused ? 0 : -1;
+    if (scrollable || descriptionFocused) {
+      view.descriptionViewport.setAttribute("role", "group");
+      view.descriptionViewport.setAttribute("aria-label", "Photograph description");
+    } else {
+      view.descriptionViewport.removeAttribute("role");
+      view.descriptionViewport.removeAttribute("aria-label");
+    }
+  };
+
+  const positionFallbacks = () => fallbacks.forEach((view, image) => positionFallback(image));
+  const resizeObserver = typeof ResizeObserver === "function"
+    ? new ResizeObserver(positionFallbacks)
+    : null;
+  window.addEventListener("resize", positionFallbacks);
+
+  const createFallback = image => {
+    if (fallbacks.has(image)) return fallbacks.get(image);
+    const link = image.closest("a");
+    const sibling = link || image;
+    const host = sibling.parentElement;
+    const panel = document.createElement("div");
+    panel.className = "inline-image-fallback";
+    panel.hidden = true;
+    const content = document.createElement("div");
+    content.className = "inline-image-fallback-content";
+    const label = document.createElement("p");
+    label.className = "inline-image-fallback-label";
+    label.textContent = "Image temporarily unavailable";
+    const descriptionViewport = document.createElement("div");
+    descriptionViewport.className = "inline-image-fallback-description";
+    descriptionViewport.tabIndex = -1;
+    const description = document.createElement("p");
+    description.textContent = image.alt;
+    // The original image remains accessible; only this visual duplicate is hidden.
+    description.setAttribute("aria-hidden", "true");
+    descriptionViewport.append(description);
+    const retry = document.createElement("button");
+    retry.type = "button";
+    content.append(label, descriptionViewport, retry);
+    panel.append(content);
+    // A sibling overlay needs no wrapper and never nests a button inside a link.
+    sibling.after(panel);
+    const view = { host, panel, retry, descriptionViewport };
+    fallbacks.set(image, view);
+    resizeObserver?.observe(image);
+    resizeObserver?.observe(host);
+
+    retry.addEventListener("click", () => {
+      if (retry.getAttribute("aria-disabled") === "true" || !isEligible(image)) return;
+      manualPending.add(image);
+      // Supersede this image's queued work only; its automatic budget is unchanged.
+      queued.set(image, { kind: "manual", due: Date.now() });
+      updateFallbacks();
+      scheduleWake();
+    });
+    panel.addEventListener("focusout", () => queueMicrotask(updateFallbacks));
+    return view;
+  };
+
+  const updateFallbacks = () => {
+    failed.forEach(createFallback);
+    fallbacks.forEach((view, image) => {
+      const unavailable = failed.has(image);
+      // Keep a recovered control only while focused, without covering the photograph.
+      view.panel.hidden = !unavailable && !view.panel.contains(document.activeElement);
+      view.panel.classList.toggle("is-recovered", !unavailable);
+      view.panel.classList.toggle("has-description-focus", document.activeElement === view.descriptionViewport);
+      view.retry.textContent = unavailable ? "Retry image" : "Image loaded";
+      view.retry.setAttribute("aria-label", `${unavailable ? "Retry image" : "Image loaded"}: ${image.alt}`);
+      view.retry.setAttribute("aria-disabled", String(!unavailable || manualPending.has(image) || !isEligible(image)));
+      if (!view.panel.hidden && getComputedStyle(view.host).position === "static") {
+        view.host.classList.add("inline-image-recovery-host");
+      }
+      positionFallback(image);
+    });
+
+    if (!failed.size) {
+      fallbacks.forEach(view => {
+        if (!Array.from(fallbacks.values()).some(other => other.host === view.host && !other.panel.hidden)) {
+          view.host.classList.remove("inline-image-recovery-host");
+        }
+      });
+    }
+
+    if (!failed.size) {
+      announcedFailure = false;
+      window.clearTimeout(announcementTimer);
+      if (status.textContent !== "Image loaded.") status.textContent = "";
+      return;
+    }
+
+    if (!announcedFailure) {
+      // Let the live region mount first; one announcement covers a failure episode.
+      announcementTimer = window.setTimeout(() => {
+        if (failed.size) status.textContent = "A photograph is temporarily unavailable. Retry is available beside its description.";
+      }, 100);
+      announcedFailure = true;
+    }
+  };
+
+  const finishManualAttempt = image => {
+    if (manualPending.delete(image)) {
+      window.clearTimeout(announcementTimer);
+      status.textContent = failed.has(image)
+        ? "Image is still unavailable. You can retry again."
+        : "Image loaded.";
+    }
+  };
+
+  const scheduleWake = () => {
+    window.clearTimeout(wakeTimer);
+    wakeTimer = null;
+    if (!queued.size) return;
+
+    const due = Math.min(...Array.from(queued.values(), job => job.due));
+    wakeTimer = window.setTimeout(runNext, Math.max(0, Math.max(due, nextStartAt) - Date.now()));
+  };
+
+  const queueAutomatic = image => {
+    const state = states.get(image);
+    if (!onlineHint || !state.automaticArmed ||
+        state.automaticAttempts >= automaticDelays.length || queued.has(image) || !isEligible(image)) return;
+
+    queued.set(image, {
+      kind: "automatic",
+      due: Date.now() + automaticDelays[state.automaticAttempts]
+    });
+    scheduleWake();
+  };
+
+  function runNext() {
+    wakeTimer = null;
+    const entry = Array.from(queued).sort((a, b) => a[1].due - b[1].due)[0];
+    if (!entry) return;
+    const [image, job] = entry;
+    if (Date.now() < Math.max(job.due, nextStartAt)) {
+      scheduleWake();
+      return;
+    }
+    queued.delete(image);
+
+    const state = states.get(image);
+    if (!isEligible(image) || (job.kind === "automatic" &&
+        (!onlineHint || state.automaticAttempts >= automaticDelays.length))) {
+      // Native responsive/lazy loading may have started its own request meanwhile.
+      finishManualAttempt(image);
+      updateFallbacks();
+      scheduleWake();
+      return;
+    }
+
+    if (job.kind === "automatic") state.automaticAttempts += 1;
+    state.inFlight = true;
+    nextStartAt = Date.now() + 500;
+    // Leave srcset/sizes intact so the browser still selects the right candidate.
+    image.setAttribute("src", image.getAttribute("src"));
+    updateFallbacks();
+    scheduleWake();
+  }
+
+  const recordFailure = image => {
+    // Ignore a late event if the current request is pending or already successful.
+    if (!image.complete || image.naturalWidth > 0 || !image.getAttribute("src")) return;
+    states.get(image).inFlight = false;
+    failed.add(image);
+    finishManualAttempt(image);
+    updateFallbacks();
+    queueAutomatic(image);
+  };
+
+  photographs.forEach(image => {
+    image.addEventListener("error", () => recordFailure(image));
+    image.addEventListener("load", () => {
+      if (!image.complete || !image.naturalWidth) return;
+      const state = states.get(image);
+      state.inFlight = false;
+      state.automaticArmed = false;
+      failed.delete(image);
+      queued.delete(image);
+      finishManualAttempt(image);
+      updateFallbacks();
+      scheduleWake();
+    });
+  });
+
+  // Earlier failures are terminal; untouched lazy images are not complete.
+  photographs.forEach(image => {
+    if (image.getAttribute("src") && image.currentSrc && image.complete && image.naturalWidth === 0) {
+      recordFailure(image);
+    }
+  });
+
+  window.addEventListener("online", () => {
+    // This is permission to attempt recovery, not proof that the server is reachable.
+    onlineHint = true;
+    failed.forEach(image => {
+      states.get(image).automaticArmed = true;
+      queueAutomatic(image);
+    });
+  });
+
+  window.addEventListener("offline", () => {
+    onlineHint = false;
+    window.clearTimeout(wakeTimer);
+    wakeTimer = null;
+    const cancelled = Array.from(queued.keys());
+    queued.clear();
+    cancelled.forEach(finishManualAttempt);
+    updateFallbacks();
+  });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
+  initializeInlineImageRecovery();
+
   /* =========================
      Mobile Navigation
   ========================= */
