@@ -682,14 +682,6 @@ a {
   height: auto;
   object-fit: contain;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  cursor: zoom-in;
-  transition: max-width 0.25s ease, max-height 0.25s ease;
-}
-
-.lightbox-content.expanded {
-  max-width: calc(100vw - 1.25rem);
-  max-height: calc(100vh - 1.25rem);
-  cursor: zoom-out;
 }
 
 .lightbox-content.is-unavailable {
@@ -740,7 +732,7 @@ a {
   user-select: none;
 }
 
-.lightbox-zoom {
+.lightbox-fullscreen {
   position: absolute;
   top: 2rem;
   right: calc(5% + 3.25rem);
@@ -758,8 +750,40 @@ a {
   user-select: none;
 }
 
-.lightbox-zoom:hover {
+.lightbox-fullscreen:hover {
   background: rgba(247, 245, 242, 0.98);
+}
+
+.lightbox-fullscreen[hidden],
+.lightbox-fullscreen .fullscreen-exit-icon,
+.lightbox-fullscreen[aria-pressed="true"] .fullscreen-enter-icon {
+  display: none;
+}
+
+.lightbox-fullscreen[aria-pressed="true"] .fullscreen-exit-icon {
+  display: block;
+}
+
+.lightbox-fullscreen[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
+.lightbox-fullscreen-status {
+  position: absolute;
+  z-index: 1;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(26rem, calc(100% - 2rem));
+  margin: 0;
+  color: #1f1f1f;
+  background: #f7f5f2;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.lightbox-fullscreen-status:not(:empty) {
+  padding: 0.5rem 0.75rem;
 }
 
 .lightbox-nav {
@@ -809,7 +833,7 @@ a {
 }
 
 .lightbox-close:focus-visible,
-.lightbox-zoom:focus-visible,
+.lightbox-fullscreen:focus-visible,
 .lightbox-nav:focus-visible,
 .lightbox-retry:focus-visible {
   outline: 1px solid #1f1f1f;
@@ -1027,11 +1051,6 @@ a {
     max-height: calc(100vh - 9rem);
   }
 
-  .lightbox-content.expanded {
-    max-width: calc(100vw - 1rem);
-    max-height: calc(100vh - 8rem);
-  }
-
   .lightbox-close {
     top: 1rem;
     right: 1rem;
@@ -1040,7 +1059,7 @@ a {
     font-size: 2rem;
   }
 
-  .lightbox-zoom {
+  .lightbox-fullscreen {
     top: 1rem;
     right: 4.25rem;
     width: 2.75rem;
@@ -1067,6 +1086,98 @@ a {
 
   .lightbox-position {
     bottom: 1.65rem;
+  }
+}
+
+/* Fullscreen changes only the viewer, never the underlying project layout. */
+#lightbox:fullscreen {
+  --viewer-top: max(0.75rem, env(safe-area-inset-top, 0px));
+  --viewer-right: max(0.75rem, env(safe-area-inset-right, 0px));
+  --viewer-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+  --viewer-left: max(0.75rem, env(safe-area-inset-left, 0px));
+  width: 100%;
+  height: 100%;
+  padding: calc(var(--viewer-top) + 3.25rem) calc(var(--viewer-right) + 3.25rem)
+    calc(var(--viewer-bottom) + 2.25rem) calc(var(--viewer-left) + 3.25rem);
+  background: #f7f5f2;
+}
+
+#lightbox::backdrop {
+  background: #f7f5f2;
+}
+
+#lightbox:fullscreen .lightbox-content {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: none;
+}
+
+#lightbox:fullscreen .lightbox-close {
+  top: var(--viewer-top);
+  right: var(--viewer-right);
+}
+
+#lightbox:fullscreen .lightbox-fullscreen {
+  top: var(--viewer-top);
+  right: calc(var(--viewer-right) + 3.25rem);
+}
+
+#lightbox:fullscreen .lightbox-prev {
+  left: var(--viewer-left);
+}
+
+#lightbox:fullscreen .lightbox-next {
+  right: var(--viewer-right);
+}
+
+#lightbox:fullscreen .lightbox-position {
+  bottom: var(--viewer-bottom);
+}
+
+#lightbox:fullscreen .lightbox-fullscreen-status {
+  top: calc(var(--viewer-top) + 3.25rem);
+}
+
+@media (max-width: 760px) {
+  #lightbox:fullscreen {
+    padding: calc(var(--viewer-top) + 3.25rem) var(--viewer-right)
+      calc(var(--viewer-bottom) + 3.25rem) var(--viewer-left);
+  }
+
+  #lightbox:fullscreen .lightbox-nav {
+    bottom: var(--viewer-bottom);
+  }
+
+  #lightbox:fullscreen .lightbox-position {
+    bottom: calc(var(--viewer-bottom) + 0.65rem);
+  }
+}
+
+/* A landscape phone needs side controls, not desktop-sized top/bottom bands. */
+@media (orientation: landscape) and (max-height: 500px) {
+  #lightbox:fullscreen {
+    padding: var(--viewer-top) calc(var(--viewer-right) + 3.25rem)
+      calc(var(--viewer-bottom) + 1.5rem) calc(var(--viewer-left) + 3.25rem);
+  }
+
+  #lightbox:fullscreen .lightbox-fullscreen {
+    top: calc(var(--viewer-top) + 3.25rem);
+    right: var(--viewer-right);
+  }
+
+  #lightbox:fullscreen .lightbox-nav {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  #lightbox:fullscreen .lightbox-position {
+    bottom: var(--viewer-bottom);
   }
 }
 

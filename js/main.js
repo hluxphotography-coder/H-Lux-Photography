@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = lightbox ? lightbox.querySelector("#lightbox-img") : null;
   const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : null;
-  const lightboxZoom = lightbox ? lightbox.querySelector("#lightbox-zoom") : null;
+  const lightboxFullscreen = lightbox ? lightbox.querySelector("#lightbox-fullscreen") : null;
   const lightboxPrev = lightbox ? lightbox.querySelector(".lightbox-prev") : null;
   const lightboxNext = lightbox ? lightbox.querySelector(".lightbox-next") : null;
   const galleryLinks = Array.from(document.querySelectorAll(".project-intro-image a[href], .gallery a[href]"));
@@ -446,6 +446,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchEndX = 0;
   let lightboxMessage = null;
   let lightboxRetry = null;
+  let fullscreenMessage = null;
+  let fullscreenRequest = null;
+  let fullscreenRejected = false;
+  let closeRequested = false;
+  let exitRequested = false;
+  let wasFullscreen = false;
+  let escapeClosesLightbox = false;
+  let lastFullscreenExit = -Infinity;
 
   if (lightbox) {
     lightbox.setAttribute("role", "dialog");
@@ -475,6 +483,13 @@ document.addEventListener("DOMContentLoaded", () => {
     lightboxRetry.hidden = true;
     feedback.append(lightboxMessage, lightboxRetry);
     lightbox.append(feedback);
+
+    fullscreenMessage = document.createElement("p");
+    fullscreenMessage.className = "lightbox-fullscreen-status";
+    fullscreenMessage.setAttribute("role", "status");
+    fullscreenMessage.setAttribute("aria-live", "polite");
+    fullscreenMessage.setAttribute("aria-atomic", "true");
+    lightbox.append(fullscreenMessage);
   }
 
   const setBackgroundInert = isInert => {
@@ -489,21 +504,94 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  const updateZoomButton = () => {
-    if (!lightboxZoom || !lightboxImg) return;
+  const restoreViewerFocus = () => {
+    if (!lightbox || !lightbox.classList.contains("active")) return;
 
-    const isExpanded = lightboxImg.classList.contains("expanded");
-
-    lightboxZoom.textContent = isExpanded ? "−" : "+";
-    lightboxZoom.setAttribute("aria-label", isExpanded ? "Reduce image" : "Expand image");
-    lightboxZoom.setAttribute("aria-pressed", isExpanded ? "true" : "false");
+    const focused = document.activeElement;
+    if (!lightbox.contains(focused) || focused.hidden || focused.disabled) {
+      lightboxClose.focus({ preventScroll: true });
+    }
   };
 
-  const toggleZoom = () => {
-    if (!lightboxImg) return;
+  const updateFullscreenButton = () => {
+    if (!lightboxFullscreen) return;
 
-    lightboxImg.classList.toggle("expanded");
-    updateZoomButton();
+    const isFullscreen = document.fullscreenElement === lightbox;
+    const supported = typeof lightbox.requestFullscreen === "function" &&
+      typeof document.exitFullscreen === "function" && document.fullscreenEnabled;
+    const label = isFullscreen ? "Exit fullscreen" : "Enter fullscreen";
+
+    lightboxFullscreen.hidden = !isFullscreen && (!supported || fullscreenRejected);
+    lightboxFullscreen.setAttribute("aria-label", label);
+    lightboxFullscreen.title = label;
+    lightboxFullscreen.setAttribute("aria-pressed", String(isFullscreen));
+    // Keep focus on the button while preventing overlapping requests.
+    lightboxFullscreen.setAttribute("aria-disabled", String(Boolean(fullscreenRequest)));
+  };
+
+  const reportFullscreenError = () => {
+    if (!lightbox.classList.contains("active")) return;
+
+    const isFullscreen = document.fullscreenElement === lightbox;
+    if (!isFullscreen) fullscreenRejected = true;
+    const message = isFullscreen
+      ? "Fullscreen could not be exited. Try again or use your browser’s exit control."
+      : "Fullscreen is unavailable. You can continue viewing here.";
+    if (fullscreenMessage.textContent !== message) fullscreenMessage.textContent = message;
+    updateFullscreenButton();
+    restoreViewerFocus();
+  };
+
+  const changeFullscreen = (enter) => {
+    if (fullscreenRequest) return;
+
+    fullscreenMessage.textContent = "";
+    // Called synchronously from the fullscreen button for entry; no delayed activation.
+    fullscreenRequest = (async () => {
+      try {
+        if (enter) {
+          await lightbox.requestFullscreen({ navigationUI: "hide" });
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch {
+        if (!enter) {
+          // A rejected exit must not hide a still-fullscreen viewer or retry forever.
+          closeRequested = false;
+          exitRequested = false;
+        }
+        reportFullscreenError();
+      }
+    })();
+    updateFullscreenButton();
+    fullscreenRequest.then(() => {
+      fullscreenRequest = null;
+      syncFullscreenState();
+    });
+  };
+
+  const settleFullscreen = () => {
+    if (fullscreenRequest || (!closeRequested && !exitRequested)) return;
+
+    if (document.fullscreenElement === lightbox) {
+      changeFullscreen(false);
+    } else {
+      exitRequested = false;
+      if (closeRequested) finishClosingLightbox();
+    }
+  };
+
+  const syncFullscreenState = () => {
+    const isFullscreen = document.fullscreenElement === lightbox;
+    if (wasFullscreen !== isFullscreen) {
+      if (!isFullscreen) lastFullscreenExit = performance.now();
+      wasFullscreen = isFullscreen;
+      // Cancel only on a real transition, not a delayed duplicate change event.
+      escapeClosesLightbox = false;
+    }
+    updateFullscreenButton();
+    settleFullscreen();
+    restoreViewerFocus();
   };
 
   const showImage = (index) => {
@@ -527,7 +615,6 @@ document.addEventListener("DOMContentLoaded", () => {
     lightboxImg.removeAttribute("src");
     lightboxImg.alt = imgAlt;
     lightboxImg.src = fullSizeUrl;
-    lightboxImg.classList.remove("expanded");
 
     if (lightboxPrev) {
       lightboxPrev.disabled = currentIndex === 0;
@@ -543,14 +630,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const totalNumber = String(galleryLinks.length).padStart(numberWidth, "0");
       lightboxPosition.textContent = `${currentNumber} / ${totalNumber}`;
     }
-
-    updateZoomButton();
   };
 
   const openLightbox = (index) => {
     if (!lightbox) return;
 
     activeGalleryLink = galleryLinks[index];
+    closeRequested = false;
+    exitRequested = false;
+    fullscreenRejected = false;
+    escapeClosesLightbox = false;
+    fullscreenMessage.textContent = "";
+    updateFullscreenButton();
     showImage(index);
     lightbox.setAttribute("aria-hidden", "false");
     lightbox.classList.add("active");
@@ -562,25 +653,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const closeLightbox = () => {
+  const finishClosingLightbox = () => {
     if (!lightbox || !lightboxImg) return;
 
+    closeRequested = false;
+    escapeClosesLightbox = false;
     lightbox.classList.remove("active");
     lightbox.setAttribute("aria-hidden", "true");
-    lightboxImg.classList.remove("expanded");
     lightboxImg.removeAttribute("src");
     lightboxImg.alt = "";
     lightboxMessage.textContent = "";
     lightboxRetry.hidden = true;
+    fullscreenMessage.textContent = "";
     document.body.style.overflow = "";
     setBackgroundInert(false);
 
-    updateZoomButton();
+    updateFullscreenButton();
 
     if (activeGalleryLink) {
       activeGalleryLink.focus({ preventScroll: true });
       activeGalleryLink = null;
     }
+  };
+
+  const closeLightbox = () => {
+    if (!lightbox || !lightbox.classList.contains("active")) return;
+
+    // Keep the dialog visible/inert until a pending entry and any required exit finish.
+    closeRequested = true;
+    settleFullscreen();
   };
 
   const showPreviousImage = () => {
@@ -596,8 +697,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const handleSwipe = () => {
-    if (lightboxImg && lightboxImg.classList.contains("expanded")) return;
-
     const swipeDistance = touchEndX - touchStartX;
     const minimumSwipeDistance = 50;
 
@@ -635,6 +734,12 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (lightbox && lightboxImg && galleryLinks.length > 0) {
+    updateFullscreenButton();
+
+    document.addEventListener("fullscreenchange", syncFullscreenState);
+
+    lightbox.addEventListener("fullscreenerror", reportFullscreenError);
+
     lightboxImg.addEventListener("load", () => {
       // Inspect the current request so late events cannot reveal a stale image.
       if (!lightbox.classList.contains("active") || !lightboxImg.complete || !lightboxImg.naturalWidth) return;
@@ -668,10 +773,11 @@ document.addEventListener("DOMContentLoaded", () => {
       lightboxClose.addEventListener("click", closeLightbox);
     }
 
-    if (lightboxZoom) {
-      lightboxZoom.addEventListener("click", (event) => {
+    if (lightboxFullscreen) {
+      lightboxFullscreen.addEventListener("click", (event) => {
         event.stopPropagation();
-        toggleZoom();
+        if (fullscreenRequest || lightboxFullscreen.hidden) return;
+        changeFullscreen(document.fullscreenElement !== lightbox);
       });
     }
 
@@ -688,11 +794,6 @@ document.addEventListener("DOMContentLoaded", () => {
         showNextImage();
       });
     }
-
-    lightboxImg.addEventListener("click", (event) => {
-      event.stopPropagation();
-      toggleZoom();
-    });
 
     lightbox.addEventListener("click", (event) => {
       if (event.target === lightbox) {
@@ -714,7 +815,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (event.key === "Escape") {
         event.preventDefault();
-        closeLightbox();
+        if (event.repeat) return;
+
+        if (document.fullscreenElement === lightbox || fullscreenRequest || wasFullscreen) {
+          escapeClosesLightbox = false;
+          exitRequested = true;
+          settleFullscreen();
+        } else {
+          // Arm closing only for a fresh key press outside fullscreen. A late
+          // event from the browser's exit gesture must not close the viewer too.
+          escapeClosesLightbox = event.timeStamp > lastFullscreenExit;
+        }
         return;
       }
 
@@ -732,16 +843,15 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         showNextImage();
       }
+    });
 
-      if (event.key === "+" || event.key === "=") {
-        lightboxImg.classList.add("expanded");
-        updateZoomButton();
-      }
+    document.addEventListener("keyup", (event) => {
+      if (event.key !== "Escape") return;
 
-      if (event.key === "-") {
-        lightboxImg.classList.remove("expanded");
-        updateZoomButton();
-      }
+      const shouldClose = escapeClosesLightbox && !fullscreenRequest &&
+        document.fullscreenElement !== lightbox;
+      escapeClosesLightbox = false;
+      if (shouldClose) closeLightbox();
     });
   }
 });
